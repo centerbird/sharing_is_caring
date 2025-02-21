@@ -1,3 +1,44 @@
-[gd_scene format=3 uid="uid://d02oar5u5m8wl"]
+[gd_scene load_steps=2 format=3 uid="uid://d02oar5u5m8wl"]
+
+[ext_resource type="PackedScene" uid="uid://htip0ukt54hf" path="res://Scenes/path_tile.tscn" id="1_dcjg2"]
 
 [node name="Main" type="Node2D"]
+
+[node name="PathTile" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(967, 967)
+
+[node name="PathTile6" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(838, 967)
+
+[node name="PathTile8" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(709, 967)
+
+[node name="PathTile9" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(580, 967)
+
+[node name="PathTile10" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(451, 967)
+
+[node name="PathTile11" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(322, 967)
+
+[node name="PathTile12" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(193, 967)
+
+[node name="PathTile13" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(64, 967)
+
+[node name="PathTile7" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(838, 838)
+
+[node name="PathTile2" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(967, 838)
+
+[node name="PathTile3" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(967, 709)
+
+[node name="PathTile4" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(967, 580)
+
+[node name="PathTile5" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(967, 451)
