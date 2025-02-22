@@ -17,7 +17,7 @@ texture = ExtResource("1_062qj")
 position = Vector2(515, 362)
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 15.0
+wait_time = 22.0
 autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

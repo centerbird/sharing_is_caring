@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2ec058iuwxmf"]
+
+[ext_resource type="Texture2D" uid="uid://qq5yb1j8utn0" path="res://assets/town_simple.png" id="1_077hd"]
+[ext_resource type="Script" path="res://src/HUD/health/health_bar.gd" id="1_yd8yv"]
+
+[node name="HealthBar" type="Node2D"]
+script = ExtResource("1_yd8yv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(32, 32)
+texture = ExtResource("1_077hd")
