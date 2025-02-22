@@ -3,3 +3,4 @@ class_name PathTile extends Tile
 ##
 ## [PathTile]s are the hiveminds of the game.
 ## They communicate with adjacent [PathTile]s to determine where [Villager]s should go.
+## @experimental : not yet complete
