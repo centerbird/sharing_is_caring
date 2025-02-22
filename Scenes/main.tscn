@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://d02oar5u5m8wl"]
+[gd_scene load_steps=3 format=3 uid="uid://d02oar5u5m8wl"]
 
 [ext_resource type="PackedScene" uid="uid://htip0ukt54hf" path="res://Scenes/tiles/path_tile.tscn" id="1_dcjg2"]
+[ext_resource type="PackedScene" uid="uid://bkrf7fhefogpy" path="res://Scenes/HUD.tscn" id="1_v63fb"]
 
 [node name="Main" type="Node2D"]
+
+[node name="Hud" parent="." instance=ExtResource("1_v63fb")]
 
 [node name="PathTile" parent="." instance=ExtResource("1_dcjg2")]
 position = Vector2(967, 967)
