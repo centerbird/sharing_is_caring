@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bpx0olkfuvi65"]
 
-[ext_resource type="Script" path="res://src/unoccupied_tile.gd" id="1_ywhfo"]
+[ext_resource type="Script" path="res://src/tiles/unoccupied_tile.gd" id="1_ywhfo"]
 [ext_resource type="Texture2D" uid="uid://d26ian4ttc8kr" path="res://assets/nautral_simple.png" id="2_jktbw"]
 
 [node name="UnoccupiedTile" type="Area2D"]

@@ -1,4 +1,4 @@
-class_name UnoccupiedTile extends ReducableArea
+class_name UnoccupiedTile extends Tile
 ## Defines an unoccupied tile.
 ##
 ## These tiles aren't currently occupied by [Village]s, [PathTile]s or [ResourceTile]s.
