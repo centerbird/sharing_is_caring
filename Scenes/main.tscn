@@ -1,3 +1,128 @@
-[gd_scene format=3 uid="uid://d02oar5u5m8wl"]
+[gd_scene load_steps=3 format=3 uid="uid://d02oar5u5m8wl"]
+
+[ext_resource type="PackedScene" uid="uid://htip0ukt54hf" path="res://Scenes/tiles/path_tile.tscn" id="1_dcjg2"]
+[ext_resource type="PackedScene" uid="uid://bkrf7fhefogpy" path="res://Scenes/HUD.tscn" id="1_v63fb"]
 
 [node name="Main" type="Node2D"]
+
+[node name="Hud" parent="." instance=ExtResource("1_v63fb")]
+
+[node name="PathTile" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(967, 967)
+
+[node name="PathTile6" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(838, 967)
+
+[node name="PathTile8" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(709, 967)
+
+[node name="PathTile9" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(580, 967)
+
+[node name="PathTile10" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(451, 967)
+
+[node name="PathTile11" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(322, 967)
+
+[node name="PathTile12" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(193, 967)
+
+[node name="PathTile13" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(64, 967)
+
+[node name="PathTile7" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(838, 838)
+
+[node name="PathTile14" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(709, 838)
+
+[node name="PathTile15" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(580, 838)
+
+[node name="PathTile16" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(451, 838)
+
+[node name="PathTile17" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(322, 838)
+
+[node name="PathTile18" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(193, 838)
+
+[node name="PathTile19" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(64, 838)
+
+[node name="PathTile20" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(838, 709)
+
+[node name="PathTile21" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(709, 709)
+
+[node name="PathTile22" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(580, 709)
+
+[node name="PathTile23" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(451, 709)
+
+[node name="PathTile24" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(322, 709)
+
+[node name="PathTile25" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(193, 709)
+
+[node name="PathTile26" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(64, 709)
+
+[node name="PathTile27" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(838, 580)
+
+[node name="PathTile28" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(709, 580)
+
+[node name="PathTile29" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(580, 580)
+
+[node name="PathTile30" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(451, 580)
+
+[node name="PathTile31" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(322, 580)
+
+[node name="PathTile32" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(193, 580)
+
+[node name="PathTile33" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(64, 580)
+
+[node name="PathTile34" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(838, 451)
+
+[node name="PathTile35" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(709, 451)
+
+[node name="PathTile36" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(580, 451)
+
+[node name="PathTile37" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(451, 451)
+
+[node name="PathTile38" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(322, 451)
+
+[node name="PathTile39" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(193, 451)
+
+[node name="PathTile40" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(64, 451)
+
+[node name="PathTile2" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(967, 838)
+
+[node name="PathTile3" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(967, 709)
+
+[node name="PathTile4" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(967, 580)
+
+[node name="PathTile5" parent="." instance=ExtResource("1_dcjg2")]
+position = Vector2(967, 451)

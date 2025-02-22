@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpx0olkfuvi65"]
+
+[ext_resource type="Script" path="res://src/unoccupied_tile.gd" id="1_ywhfo"]
+
+[node name="UnoccupiedTile" type="Area2D"]
+monitoring = false
+monitorable = false
+script = ExtResource("1_ywhfo")
+
+[node name="Button" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
