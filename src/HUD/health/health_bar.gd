@@ -2,6 +2,7 @@ class_name HealthBar extends Node2D
 ## Manages the health bar of a single [Village]
 ##
 ## @experimental : not yet finished
+## @deprecated
 
 ## Amount of health a village has.
 @export var health : int = 7

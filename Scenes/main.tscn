@@ -1,7 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dgyteunfng7ua"]
+[gd_scene load_steps=3 format=3 uid="uid://dgyteunfng7ua"]
 
-[ext_resource type="Script" path="res://Scenes/sharing_is_caring.gd" id="1_krn24"]
+[ext_resource type="Script" path="res://src/sharing_is_caring.gd" id="1_krn24"]
+[ext_resource type="PackedScene" uid="uid://bkrf7fhefogpy" path="res://Scenes/HUD/HUD.tscn" id="2_tsiet"]
 
 [node name="Main" type="Node2D"]
-modulate = Color(0.639216, 0.286275, 0.643137, 1)
 script = ExtResource("1_krn24")
+
+[node name="Hud" parent="." instance=ExtResource("2_tsiet")]
+position = Vector2(0, 1)

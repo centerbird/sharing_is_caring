@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://pxf0nt8u84je"]
+
+[ext_resource type="Script" path="res://src/HUD/health/damage_bar.gd" id="1_3jdum"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b561v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m5lay"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_liloh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_etyio"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="ProgressBar" type="ProgressBar"]
+z_index = 1
+offset_right = 850.0
+offset_bottom = 27.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_b561v")
+theme_override_styles/fill = SubResource("StyleBoxFlat_m5lay")
+show_percentage = false
+script = ExtResource("1_3jdum")
+
+[node name="DamageBar" type="ProgressBar" parent="."]
+z_index = -1
+layout_mode = 0
+offset_right = 850.0
+offset_bottom = 27.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_liloh")
+theme_override_styles/fill = SubResource("StyleBoxFlat_etyio")
+value = 100.0
+show_percentage = false

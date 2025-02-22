@@ -21,19 +21,24 @@ position = Vector2(515, 362)
 wait_time = 22.0
 autostart = true
 
-[node name="HealthBar" parent="." instance=ExtResource("4_nf0km")]
-position = Vector2(39, 38)
+[node name="HealthBar1" parent="." instance=ExtResource("4_nf0km")]
+position = Vector2(85, 45)
 
 [node name="HealthBar2" parent="." instance=ExtResource("4_nf0km")]
-position = Vector2(39, 104)
+position = Vector2(85, 111)
 
 [node name="HealthBar3" parent="." instance=ExtResource("4_nf0km")]
-position = Vector2(39, 170)
+position = Vector2(85, 177)
 
 [node name="HealthBar4" parent="." instance=ExtResource("4_nf0km")]
-position = Vector2(39, 236)
+position = Vector2(85, 243)
 
 [node name="HealthBar5" parent="." instance=ExtResource("4_nf0km")]
-position = Vector2(39, 302)
+position = Vector2(85, 309)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="game_over" from="HealthBar1" to="." method="_on_health_bar_game_over"]
+[connection signal="game_over" from="HealthBar2" to="." method="_on_health_bar_game_over"]
+[connection signal="game_over" from="HealthBar3" to="." method="_on_health_bar_game_over"]
+[connection signal="game_over" from="HealthBar4" to="." method="_on_health_bar_game_over"]
+[connection signal="game_over" from="HealthBar5" to="." method="_on_game_over"]
