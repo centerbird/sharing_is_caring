@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmhf5yllx1ix8"]
+
+[ext_resource type="Texture2D" uid="uid://d0qv0bd7w4nbm" path="res://assets/exhausted_simple.png" id="1_0n06q"]
+
+[node name="Destroyed" type="Sprite2D"]
+scale = Vector2(2, 2)
+texture = ExtResource("1_0n06q")

@@ -1,7 +1,8 @@
 class_name WhatCouldGoWrong extends Node2D
 ## Detects when the grid is supposed to be enlarged.
 ##
-## @experimental : not yet finished
+## This button signals the game world to enlage. It can only be pressed after a set period of time has passed.
+## Said preiod increases with each press of the button.
 
 ## Emitted when the grid is supposed to enlarge.
 signal enlarge_grid

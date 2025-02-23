@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckum3l1jpxo1q"]
+
+[ext_resource type="Script" path="res://src/tiles/village.gd" id="1_rwxki"]
+[ext_resource type="Texture2D" uid="uid://qq5yb1j8utn0" path="res://assets/town_simple.png" id="2_n6dr4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_16jgd"]
+size = Vector2(128, 128)
+
+[node name="Village" type="Area2D"]
+monitoring = false
+script = ExtResource("1_rwxki")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_n6dr4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_16jgd")

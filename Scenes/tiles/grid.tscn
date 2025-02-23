@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cmuj8b7jrfgb2"]
 
-[ext_resource type="Script" path="res://Scenes/tiles/grid.gd" id="1_pqci1"]
+[ext_resource type="Script" path="res://src/tiles/grid.gd" id="1_pqci1"]
 
 [node name="Grid" type="Node2D"]
 script = ExtResource("1_pqci1")
