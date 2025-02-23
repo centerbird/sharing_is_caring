@@ -13,11 +13,11 @@ var _is_field := true
 signal battle_start
 
 # TODO
-func _ready():
+func _ready() -> void:
 	area_entered.connect(_on_area_entered)
 
 # TODO
-func hive_mind():
+func hive_mind() -> void:
 	# Check surroundings (get_overlapping_areas());
 	# if resource or village, add to list with d=0; if path, get list;
 	# compare common elements in lists;
@@ -25,9 +25,10 @@ func hive_mind():
 	pass
 
 # TODO
-func _on_area_entered(area : Area2D):
+func _on_area_entered(area : Area2D) -> void:
 	if area is Villager:
 		area.give_direction(get_direction(area.get_destination()))
+	# TODO
 
 # TODO
 func get_direction(dest : String) -> String:

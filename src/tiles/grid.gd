@@ -1,7 +1,7 @@
 class_name Grid extends Node2D
 ## Responsible for populating the world with different kinds of tiles.
 ##
-## @experimental : TODO
+## Can be "zoomed out" to reveal new tiles around its initial setup.
 
 ## Village tile.
 ## [br][br] These tiles are responsible for updating the game's state, spawning [Villager]s and assigning them.
@@ -74,7 +74,7 @@ func calc_location(x : int, y : int) -> Vector2:
 ## ## Spawns a node at a given location.
 ## [br][br]
 ## [param location] : The position (relative to grid) at which to spawn the node.
-func spawn_other(location : Vector2, instance : Node2D):
+func spawn_other(location : Vector2, instance : Node2D) -> void:
 	if instance is UnoccupiedTile:
 		instance.expired.connect(_on_empty_expire)
 	elif instance is PathTile:
@@ -90,7 +90,7 @@ func spawn_other(location : Vector2, instance : Node2D):
 ## Spawns a village at a given location.
 ## [br][br]
 ## [param location] : The position (relative to grid) at which to spawn the village.
-func spawn_village(location : Vector2):
+func spawn_village(location : Vector2) -> void:
 	var village_instance = village.instantiate()
 	add_child(village_instance)
 	village_instance.position = location
@@ -114,22 +114,22 @@ func _on_enlarge() -> void:
 	# TODO : test
 
 # Spawn destroyed tile.
-func _on_destruction(location : Vector2):
+func _on_destruction(location : Vector2) -> void:
 	spawn_other(location, destroyed.instantiate())
 	
 
-# TODO : tell people about started battle
-func _on_battle_start(location : Vector2):
+# TODO : tell people about the started battle
+func _on_battle_start(location : Vector2) -> void:
 	spawn_other(location, battlefield.instantiate())
 
 # Defines the behaviour when an unoccupied tile becomes a path.
 # [br][br]
 # [param location] : [member position] of the expired tile.
-func _on_empty_expire(location : Vector2):
+func _on_empty_expire(location : Vector2) -> void:
 	var path_instance = path.instantiate()
 	add_child(path_instance)
 	path_instance.position = location
 
-# Behaviour to take at the very start of the game.
+# Behaviour to take at the very start of the game. Populates the initial range of [Grid].
 func _on_start() -> void:
 	populate()

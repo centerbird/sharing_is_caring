@@ -8,7 +8,7 @@ class_name WhatCouldGoWrong extends Node2D
 signal enlarge_grid
 
 ## Cumulative time to wait. [br] Set in Editor for initial waiting time.
-@export var timer : float = 0
+@export var timer : float = 1
 
 ## Time elapsed between blinking.
 @export var blink_interval : float = 0.3
@@ -29,28 +29,26 @@ signal enlarge_grid
 # Keeps track of whether the button is ready or not
 var _button_ready : bool = false
 
-## Prepares the timer.
-func _ready():
-	if not augments_linearly and timer == 0:
-		timer = 1
+## Waits until the button is ready to be pressed for the first time.
+func _ready() -> void:
 	_await()
 
 # Increases the timer by the proper amount.
-func _increase_timer():
+func _increase_timer() -> void:
 	if augments_linearly:
 			timer += linear_increase
 	else:
 		timer = timer * geometric_increase
 
-## Goes invisible for a set duration and then reappears.
+## Button's background becomes invisible for a set duration and then reappears.
 func _on_button_pressed() -> void:
 	if _button_ready:
 		_button_ready = false
 		enlarge_grid.emit()
 		_await()
 
-## TODO
-func _await():
+# Makes the button unavailable for a set amount of time.
+func _await() -> void:
 	$Blinkie.hide()
 	await get_tree().create_timer(timer).timeout
 	_increase_timer()
