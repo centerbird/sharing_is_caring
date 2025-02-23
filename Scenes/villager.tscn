@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cbeyu1tc726v1" path="res://assets/villager_empty.png" id="4_n0ubt"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_54pqi"]
+resource_local_to_scene = true
 animations = [{
 "frames": [{
 "duration": 1.0,

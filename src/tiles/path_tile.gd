@@ -17,6 +17,14 @@ func _ready():
 	area_entered.connect(_on_area_entered)
 
 # TODO
+func hive_mind():
+	# Check surroundings (get_overlapping_areas());
+	# if resource or village, add to list with d=0; if path, get list;
+	# compare common elements in lists;
+	# signal to modify if need be
+	pass
+
+# TODO
 func _on_area_entered(area : Area2D):
 	if area is Villager:
 		area.give_direction(get_direction(area.get_destination()))

@@ -32,7 +32,7 @@ class_name Grid extends Node2D
 ## The minimum distance that a tile's center can be from the edge at the initial game world.
 @export var offset : float = 64
 
-# Number of spawned villages TODO : increase each time a village spawns
+# Number of spawned villages
 var _village_number : int = 0
 
 # Extreme grid positions on the x axis
@@ -113,13 +113,14 @@ func _on_enlarge() -> void:
 	print(scale)
 	# TODO : test
 
-# TODO
-func _on_destruction():
-	pass
+# Spawn destroyed tile.
+func _on_destruction(location : Vector2):
+	spawn_other(location, destroyed.instantiate())
+	
 
-# TODO
-func _on_battle_start():
-	pass
+# TODO : tell people about started battle
+func _on_battle_start(location : Vector2):
+	spawn_other(location, battlefield.instantiate())
 
 # Defines the behaviour when an unoccupied tile becomes a path.
 # [br][br]
