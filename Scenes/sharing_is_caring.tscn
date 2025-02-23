@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dgyteunfng7ua"]
+[gd_scene load_steps=5 format=3 uid="uid://dgyteunfng7ua"]
 
 [ext_resource type="Script" path="res://src/sharing_is_caring.gd" id="1_vngij"]
 [ext_resource type="PackedScene" uid="uid://bkrf7fhefogpy" path="res://Scenes/HUD/HUD.tscn" id="2_nm6qv"]
 [ext_resource type="PackedScene" uid="uid://cmuj8b7jrfgb2" path="res://Scenes/tiles/grid.tscn" id="3_kq8im"]
+[ext_resource type="PackedScene" uid="uid://cskjvx83suloi" path="res://Scenes/landing_page.tscn" id="4_xsvgf"]
 
 [node name="SharingIsCaring" type="Node2D"]
 script = ExtResource("1_vngij")
@@ -13,5 +14,7 @@ position = Vector2(0, 1)
 
 [node name="Grid" parent="." instance=ExtResource("3_kq8im")]
 position = Vector2(0, 387)
+
+[node name="LandingPage" parent="." instance=ExtResource("4_xsvgf")]
 
 [connection signal="enlarge_grid" from="Hud" to="Grid" method="_on_enlarge"]
