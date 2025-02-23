@@ -3,9 +3,7 @@
 [ext_resource type="Script" path="res://src/tiles/unoccupied_tile.gd" id="1_ywhfo"]
 [ext_resource type="Texture2D" uid="uid://d26ian4ttc8kr" path="res://assets/nautral_simple.png" id="2_jktbw"]
 
-[node name="UnoccupiedTile" type="Area2D"]
-monitoring = false
-monitorable = false
+[node name="UnoccupiedTile" type="Node2D"]
 script = ExtResource("1_ywhfo")
 
 [node name="Button" type="Button" parent="."]

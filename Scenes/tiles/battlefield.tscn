@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bsds74a2wypvn"]
+
+[ext_resource type="Script" path="res://src/tiles/battlefield.gd" id="1_mbbke"]
+[ext_resource type="Texture2D" uid="uid://0ysc4tjxe236" path="res://assets/empty_square_64.png" id="2_j7wsb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qe1xc"]
+size = Vector2(128, 128)
+
+[node name="Battlefield" type="Area2D"]
+script = ExtResource("1_mbbke")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_j7wsb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qe1xc")
