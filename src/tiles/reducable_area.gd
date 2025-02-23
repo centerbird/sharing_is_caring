@@ -3,6 +3,7 @@ class_name ReducableArea extends Area2D
 ##
 ## These nodes can be reduced in size. Some of them have special calculations made to acommodate their new size.
 ## @experimental : not yet complete
+## @deprecated
 
 ## Reduces TODO
 func reduce(new_scale : float) -> void:

@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://b2ec058iuwxmf"]
+
+[ext_resource type="Texture2D" uid="uid://qq5yb1j8utn0" path="res://assets/town_simple.png" id="1_077hd"]
+[ext_resource type="Script" path="res://src/HUD/health/damage_bar_manager.gd" id="1_f206b"]
+[ext_resource type="PackedScene" uid="uid://pxf0nt8u84je" path="res://Scenes/HUD/health/damage_bar.tscn" id="3_c5blo"]
+
+[node name="HealthBar" type="Node2D"]
+script = ExtResource("1_f206b")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_077hd")
+
+[node name="ProgressBar" parent="." instance=ExtResource("3_c5blo")]
+offset_left = 40.0
+offset_top = 1.0
+offset_right = 889.0
+offset_bottom = 28.0
+
+[connection signal="game_over" from="ProgressBar" to="." method="_on_progress_bar_game_over"]
