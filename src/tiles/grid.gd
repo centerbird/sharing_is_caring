@@ -36,10 +36,14 @@ func populate() -> void:
 func _on_enlarge() -> void:
 	pass # TODO
 
-## Defines the behaviour when an unoccupied tile becomes a path.
-## [br][br]
-## [param location] : [member position] of the expired tile.
+# Defines the behaviour when an unoccupied tile becomes a path.
+# [br][br]
+# [param location] : [member position] of the expired tile.
 func _on_empty_expire(location : Vector2):
 	var path = path.instantiate()
 	add_child(path)
 	path.position = location
+
+# Behaviour to take at the very start of the game.
+func _on_start() -> void:
+	populate()
