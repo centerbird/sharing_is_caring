@@ -18,3 +18,11 @@ func id(id_no : int):
 ## [code]Returns[/code] : ID of the village.
 func get_id():
 	return _id
+
+func _after_ready():
+	var villager = preload("res://Scenes/villager.tscn").instantiate()
+	villager.setup(self)
+	villager.global_position = global_position
+	get_window().add_child(villager)
+	print(position)
+	print(villager.position)
