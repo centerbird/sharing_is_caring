@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://src/tiles/path_tile.gd" id="1_ndl40"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_udr75"]
-size = Vector2(62, 62)
+size = Vector2(64, 64)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_p18l1"]
 a = Vector2(-34, 0)
