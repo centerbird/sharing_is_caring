@@ -7,8 +7,8 @@ class_name WhatCouldGoWrong extends Node2D
 ## Emitted when the grid is supposed to enlarge.
 signal enlarge_grid
 
-# cumulative time to wait
-var _timer : float = 0
+## Cumulative time to wait. [br] Set in Editor for initial waiting time.
+@export var timer : float = 0
 
 ## Time elapsed between blinking.
 @export var blink_interval : float = 0.3
@@ -31,29 +31,33 @@ var _button_ready : bool = false
 
 ## Prepares the timer.
 func _ready():
-	if not augments_linearly:
-		_timer = 1
-	_button_ready = true
+	if not augments_linearly and timer == 0:
+		timer = 1
+	_await()
 
 # Increases the timer by the proper amount.
 func _increase_timer():
 	if augments_linearly:
-			_timer += linear_increase
+			timer += linear_increase
 	else:
-		_timer = _timer * geometric_increase
+		timer = timer * geometric_increase
 
 ## Goes invisible for a set duration and then reappears.
 func _on_button_pressed() -> void:
 	if _button_ready:
 		_button_ready = false
 		enlarge_grid.emit()
-		$Blinkie.hide()
-		await get_tree().create_timer(_timer).timeout
-		_increase_timer()
-		for i in range(blink_amount):
-			$Blinkie.show()
-			await get_tree().create_timer(blink_interval).timeout
-			$Blinkie.hide()
-			await get_tree().create_timer(blink_interval).timeout
+		_await()
+
+## TODO
+func _await():
+	$Blinkie.hide()
+	await get_tree().create_timer(timer).timeout
+	_increase_timer()
+	for i in range(blink_amount):
 		$Blinkie.show()
-		_button_ready = true
+		await get_tree().create_timer(blink_interval).timeout
+		$Blinkie.hide()
+		await get_tree().create_timer(blink_interval).timeout
+	$Blinkie.show()
+	_button_ready = true

@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://di260r30wt75y"]
+
+[ext_resource type="Script" path="res://src/tiles/resource_tile.gd" id="1_wia7a"]
+[ext_resource type="Texture2D" uid="uid://d2cchntgdtkxw" path="res://assets/Icon13.png" id="2_w2wjh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rdu55"]
+size = Vector2(128, 128)
+
+[node name="ResourceTile" type="Area2D"]
+script = ExtResource("1_wia7a")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(4, 4)
+texture = ExtResource("2_w2wjh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_rdu55")

@@ -18,3 +18,5 @@ position = Vector2(0, 387)
 [node name="LandingPage" parent="." instance=ExtResource("4_xsvgf")]
 
 [connection signal="enlarge_grid" from="Hud" to="Grid" method="_on_enlarge"]
+[connection signal="new_village" from="Grid" to="." method="_on_new_village"]
+[connection signal="start" from="LandingPage" to="Grid" method="_on_start"]
