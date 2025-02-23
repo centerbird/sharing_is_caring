@@ -17,17 +17,22 @@ func connect_village(village : Village):
 ## [br][br]
 ## [param village_id] : Index designating the village. This is a number between 0 and 4; corresponding to the village from top to the bottom of the HUD, respectively.
 func deliver_resource(village_id : int) -> void:
-	get_node(_health_bar_name(village_id)).health += 1
+	get_node(_damage_bar_name(village_id)).health += 1
+
+# Obtains the name of the damage bar associated with the village healthbar associated with the village ID.
+# [param index] : Index designating the village. This is a number between 0 and 4; corresponding to the village from top to the bottom of the HUD, respectively.
+func _damage_bar_name(index : int) -> String:
+	return "HealthBar" + str(index + 1) + "/ProgressBar"
 
 # Obtains the name of the village healthbar associated with the village ID.
 # [param index] : Index designating the village. This is a number between 0 and 4; corresponding to the village from top to the bottom of the HUD, respectively.
 func _health_bar_name(index : int) -> String:
-	return "HealthBar" + str(index) + "/ProgressBar"
+	return "HealthBar" + str(index + 1)
 
 # Decrease all active health bars by one.
 func _on_timer_timeout() -> void:
-	for i in range(1,6):
-		get_node(_health_bar_name(i)).health -= 1
+	for i in range(0,5):
+		get_node(_damage_bar_name(i)).health -= 1
 
 # Ends the game and spawns game over screen. TODO
 func _on_game_over() -> void:
