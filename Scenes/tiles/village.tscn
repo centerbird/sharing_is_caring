@@ -7,7 +7,6 @@
 size = Vector2(128, 128)
 
 [node name="Village" type="Area2D"]
-monitoring = false
 script = ExtResource("1_rwxki")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -111,7 +111,7 @@ func _on_enlarge() -> void:
 	position.y += (645.0 * (1.0 - scale.y) / 2.0)
 	print(position)
 	print(scale)
-	# TODO
+	# TODO : test
 
 # TODO
 func _on_destruction():
