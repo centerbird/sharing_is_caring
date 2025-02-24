@@ -3,6 +3,17 @@ class_name Grid extends Node2D
 ##
 ## Can be "zoomed out" to reveal new tiles around its initial setup.
 
+
+## Dimensions of the initial game world.
+@export var dimensions := Vector2(8, 5)
+
+## The minimum distance that a tile's center can be from the edge at the initial game world.
+@export var offset : float = 64 # TODO : get offset from sprite (half the [Sprite]'s width after scaling)
+
+## The mximum number of [Villages] in the game that [HUD] supports.
+@export var max_villages : int = 5
+
+@export_group("Tiles")
 ## Village tile.
 ## [br][br] These tiles are responsible for updating the game's state, spawning [Villager]s and assigning them.
 @export var village := preload("res://Scenes/tiles/village.tscn")
@@ -26,17 +37,28 @@ class_name Grid extends Node2D
 ##[br][br] After letting villagers kill eachother, these tiles disappear.
 @export var battlefield := preload("res://Scenes/tiles/battlefield.tscn")
 
-## Dimensions of the initial game world.
-@export var dimensions := Vector2(8, 5)
+@export_group("Spawn Rates")
+## Spawn rate of [Village]s. 0 would mean no new [Village]s will be spawned and 100 would make every new tile a new [Village].
+@export_range(0,100) var village_spawn_rate : int = 0
 
-## The minimum distance that a tile's center can be from the edge at the initial game world.
-@export var offset : float = 64 # TODO : get offset from sprite (half the [Sprite]'s width after scaling)
+## Spawn rate of [Resource]s. 0 would mean no new [Resource]s will be spawned and 100 would make every new tile, that is not a [Village], a new [Resource].
+## Yes, [Village]s have priority over [Reource]s.
+@export_range(0,100) var resource_spawn_rate : int = 0
 
 # Number of spawned villages
 var _village_number : int = 0
 
 # Keeps track of how small the grid has become
 var _new_zero : int = 0
+
+# Random number generator for generating random tiles.
+@onready var _rng : RandomNumberGenerator = RandomNumberGenerator.new()
+
+# New dimensions of the [Grid] after rescaling.
+@onready var _new_dimensions : Vector2 = dimensions
+
+# Keeps track of the previous calculated offset
+@onready var _old_offset : Vector2 = Vector2.ONE * offset
 
 ## Emitted when a new [Village] is added to the game world.
 signal new_village
@@ -62,7 +84,6 @@ func populate() -> void:
 ## [param y] : bertical order of the tile in grid
 ## [br][br][code]Returns[/code] : [member postion] of the tile
 func calc_location(x : int, y : int) -> Vector2:
-	print([x, y])
 	return Vector2(offset + (2 * offset * x) + x, offset + (2 * offset * y) + y)
 
 ## ## Spawns a node at a given location.
@@ -89,18 +110,22 @@ func spawn_tile(location : Vector2, instance : Node2D) -> void:
 
 ## Rescales the [Grid] and populates the newly appeared empty area.
 func _on_enlarge() -> void:
-	scale.x = scale.x * 0.8 # TODO maybe one day do actual calculations that are dynamic to different grid shapes and layouts; this applies for the three following TODOs as well
-	scale.y = scale.y * (5.0/7.0) # TODO
-	position.x += (1031.0 * (1.0 - scale.x) / 2.0) # TODO
-	position.y += (645.0 * (1.0 - scale.y) / 2.0) # TODO
+	var old_dimensions = _new_dimensions
+	_new_dimensions += Vector2.ONE * 2
+	scale.x = scale.x * (float(old_dimensions.x)/float(_new_dimensions.x)) # TODO maybe one day do actual calculations that are dynamic to different grid shapes and layouts; this applies for the three following TODOs as well
+	scale.y = scale.y * (old_dimensions.y/_new_dimensions.y) # TODO
+	_old_offset = _old_offset * scale
+	position.x += _old_offset.x * 2#(1031.0 * (1.0 - scale.x) / 2.0) # TODO
+	position.y += _old_offset.y * 2#(645.0 * (1.0 - scale.y) / 2.0) # TODO
 	_fill_around()
 
-# Fills the immediate area surrounding with a one tile thich line if tiles. TODO
+# Fills the immediate area surrounding with a one tile thich line if tiles.
 func _fill_around():
 	var location : Vector2
 	_new_zero -= 1
-	var new_dimensions = dimensions - Vector2(_new_zero, _new_zero)
+	#var new_dimensions = dimensions - Vector2(_new_zero, _new_zero)
 	# fill top and bottom
+	var new_dimensions = _new_dimensions + (Vector2.ONE * _new_zero)
 	for tile_abscissa in range(_new_zero, new_dimensions.x):
 		location = calc_location(tile_abscissa, _new_zero)
 		spawn_tile(location, _get_random_tile_instance())
@@ -115,9 +140,18 @@ func _fill_around():
 
 # Instantiates a random tile from the allowed options.
 # [code]Returns[/code] : The instance of the newly instantiated tile.
-func _get_random_tile_instance() -> Node2D: # TODO
+func _get_random_tile_instance() -> Node2D:
+	var x = _rng.randi_range(0, 100)
+	print(x)
+	match x:
+		x when x < village_spawn_rate:
+			print("Village : "+str(x))
+			if _village_number != max_villages:
+				return village.instantiate()
+		x when (x - village_spawn_rate) < resource_spawn_rate:
+			print("Resource : "+str(x-village_spawn_rate))
+			return resource.instantiate()
 	return empty.instantiate()
-	
 
 # Spawn destroyed tile.
 func _on_destruction(location : Vector2) -> void:
