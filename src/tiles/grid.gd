@@ -30,16 +30,13 @@ class_name Grid extends Node2D
 @export var dimensions := Vector2(8, 5)
 
 ## The minimum distance that a tile's center can be from the edge at the initial game world.
-@export var offset : float = 64
+@export var offset : float = 64 # TODO : get offset from sprite (half the [Sprite]'s width after scaling)
 
 # Number of spawned villages
 var _village_number : int = 0
 
-# Extreme grid positions on the x axis
-@onready var _extreme_x := Vector2(0, dimensions.x)
-
-# Extreme grid positions on the y axis
-@onready var _extreme_y := Vector2(0, dimensions.y)
+# Keeps track of how small the grid has become
+var _new_zero : int = 0
 
 ## Emitted when a new [Village] is added to the game world.
 signal new_village
@@ -57,11 +54,7 @@ func populate() -> void:
 		for y in range(dimensions.y):
 			var instance = deck.pop_front().instantiate()
 			var location = calc_location(x, y)
-			if instance is Village:
-				instance.free()
-				spawn_village(location)
-			else:
-				spawn_other(location, instance)
+			spawn_tile(location, instance)
 
 ## Calculates the [member position] of a tile, given it's order on the grid.
 ##[br][br]
@@ -69,58 +62,71 @@ func populate() -> void:
 ## [param y] : bertical order of the tile in grid
 ## [br][br][code]Returns[/code] : [member postion] of the tile
 func calc_location(x : int, y : int) -> Vector2:
+	print([x, y])
 	return Vector2(offset + (2 * offset * x) + x, offset + (2 * offset * y) + y)
 
 ## ## Spawns a node at a given location.
 ## [br][br]
 ## [param location] : The position (relative to grid) at which to spawn the node.
-func spawn_other(location : Vector2, instance : Node2D) -> void:
-	if instance is UnoccupiedTile:
-		instance.expired.connect(_on_empty_expire)
-	elif instance is PathTile:
-		instance.battle_start.connect(_on_battle_start)
-	elif instance is ResourceTile:
-		instance.battle_start.connect(_on_battle_start)
-		instance.depleted.connect(_on_destruction)
-	elif instance is Battlefield:
-		instance.battle_ended.connect(_on_destruction)
+func spawn_tile(location : Vector2, instance : Node2D) -> void:
+	match instance.get_script():
+		UnoccupiedTile:
+			instance.expired.connect(_on_empty_expire)
+		PathTile:
+			instance.battle_start.connect(_on_battle_start)
+		ResourceTile:
+			instance.battle_start.connect(_on_battle_start)
+			instance.depleted.connect(_on_destruction)
+		Battlefield:
+			instance.battle_ended.connect(_on_destruction)
+		Village:
+			instance.id(_village_number)
+			_village_number += 1
+			new_village.emit(instance)
+			instance.modulate = SharingIsCaring.VillageColors[instance.get_id()]
 	add_child(instance)
 	instance.position = location
 
-## Spawns a village at a given location.
-## [br][br]
-## [param location] : The position (relative to grid) at which to spawn the village.
-func spawn_village(location : Vector2) -> void:
-	var village_instance = village.instantiate()
-	add_child(village_instance)
-	village_instance.position = location
-	village_instance.id(_village_number)
-	_village_number += 1
-	new_village.emit(village_instance)
-	village_instance.modulate = SharingIsCaring.VillageColors[village_instance.get_id()]
-
 ## Rescales the [Grid] and populates the newly appeared empty area.
 func _on_enlarge() -> void:
-	var change = Vector2(-1,1)
-	_extreme_x += change
-	_extreme_y += change
-	dimensions += Vector2(2, 2)
-	scale.x = scale.x * 0.8
-	scale.y = scale.y * (5.0/7.0)
-	position.x += (1031.0 * (1.0 - scale.x) / 2.0)
-	position.y += (645.0 * (1.0 - scale.y) / 2.0)
-	print(position)
-	print(scale)
-	# TODO : test
+	scale.x = scale.x * 0.8 # TODO maybe one day do actual calculations that are dynamic to different grid shapes and layouts; this applies for the three following TODOs as well
+	scale.y = scale.y * (5.0/7.0) # TODO
+	position.x += (1031.0 * (1.0 - scale.x) / 2.0) # TODO
+	position.y += (645.0 * (1.0 - scale.y) / 2.0) # TODO
+	_fill_around()
+
+# Fills the immediate area surrounding with a one tile thich line if tiles. TODO
+func _fill_around():
+	var location : Vector2
+	_new_zero -= 1
+	var new_dimensions = dimensions - Vector2(_new_zero, _new_zero)
+	# fill top and bottom
+	for tile_abscissa in range(_new_zero, new_dimensions.x):
+		location = calc_location(tile_abscissa, _new_zero)
+		spawn_tile(location, _get_random_tile_instance())
+		location = calc_location(tile_abscissa, new_dimensions.y - 1)
+		spawn_tile(location, _get_random_tile_instance())
+	# fill sides
+	for tile_ordinate in range(_new_zero + 1, new_dimensions.y - 1):
+		location = calc_location(_new_zero, tile_ordinate)
+		spawn_tile(location, _get_random_tile_instance())
+		location = calc_location(new_dimensions.x - 1, tile_ordinate)
+		spawn_tile(location, _get_random_tile_instance())
+
+# Instantiates a random tile from the allowed options.
+# [code]Returns[/code] : The instance of the newly instantiated tile.
+func _get_random_tile_instance() -> Node2D: # TODO
+	return empty.instantiate()
+	
 
 # Spawn destroyed tile.
 func _on_destruction(location : Vector2) -> void:
-	spawn_other(location, destroyed.instantiate())
+	spawn_tile(location, destroyed.instantiate())
 	
 
 # TODO : tell people about the started battle
 func _on_battle_start(location : Vector2) -> void:
-	spawn_other(location, battlefield.instantiate())
+	spawn_tile(location, battlefield.instantiate())
 
 # Defines the behaviour when an unoccupied tile becomes a path.
 # [br][br]
