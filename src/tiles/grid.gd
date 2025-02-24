@@ -32,6 +32,9 @@ class_name Grid extends Node2D
 ## The minimum distance that a tile's center can be from the edge at the initial game world.
 @export var offset : float = 64 # TODO : get offset from sprite (half the [Sprite]'s width after scaling)
 
+## The mximum number of [Villages] in the game that [HUD] supports.
+@export var max_villages : int = 5
+
 # Number of spawned villages
 var _village_number : int = 0
 
@@ -62,7 +65,6 @@ func populate() -> void:
 ## [param y] : bertical order of the tile in grid
 ## [br][br][code]Returns[/code] : [member postion] of the tile
 func calc_location(x : int, y : int) -> Vector2:
-	print([x, y])
 	return Vector2(offset + (2 * offset * x) + x, offset + (2 * offset * y) + y)
 
 ## ## Spawns a node at a given location.
@@ -116,8 +118,15 @@ func _fill_around():
 # Instantiates a random tile from the allowed options.
 # [code]Returns[/code] : The instance of the newly instantiated tile.
 func _get_random_tile_instance() -> Node2D: # TODO
+	var x = 80
+	match x:
+		var y when y < 10:
+			if _village_number != max_villages:
+				return village.instantiate()
+		var y when y < 20:
+			return resource.instantiate()
 	return empty.instantiate()
-	
+@onready var test = _get_random_tile_instance()	
 
 # Spawn destroyed tile.
 func _on_destruction(location : Vector2) -> void:
