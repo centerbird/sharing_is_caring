@@ -110,7 +110,7 @@ func _on_enlarge() -> void:
 	position.y += scale.y * offset * 2 #(645.0 * (1.0 - scale.y) / 2.0) # TODO
 	_fill_around()
 
-# Fills the immediate area surrounding with a one tile thich line if tiles. TODO
+# Fills the immediate area surrounding with a one tile thich line if tiles.
 func _fill_around():
 	var location : Vector2
 	_new_zero -= 1
