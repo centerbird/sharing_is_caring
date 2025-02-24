@@ -84,8 +84,9 @@ func spawn_tile(location : Vector2, instance : Node2D) -> void:
 			_village_number += 1
 			new_village.emit(instance)
 			instance.modulate = SharingIsCaring.VillageColors[instance.get_id()]
-	add_child(instance)
 	instance.position = location
+	add_child(instance)
+
 
 ## Rescales the [Grid] and populates the newly appeared empty area.
 func _on_enlarge() -> void:

@@ -53,5 +53,6 @@ path_postprocessing = 1
 debug_enabled = true
 
 [node name="Timer" type="Timer" parent="Navigation"]
-wait_time = 0.1
 autostart = true
+
+[connection signal="timeout" from="Navigation/Timer" to="." method="_on_timer_timeout"]

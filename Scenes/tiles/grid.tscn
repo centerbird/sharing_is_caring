@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://cmuj8b7jrfgb2"]
+[gd_scene load_steps=3 format=3 uid="uid://cmuj8b7jrfgb2"]
 
 [ext_resource type="Script" path="res://src/tiles/grid.gd" id="1_pqci1"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_pbf1e"]
+vertices = PackedVector2Array(1013.06, 1016, 14.0078, 1016.99, 14.9766, 404.992, 1016.93, 404)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(5, 395, 1027, 394, 1023, 1026, 4, 1027)])
+
 [node name="Grid" type="Node2D"]
 script = ExtResource("1_pqci1")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+z_index = 2
+navigation_polygon = SubResource("NavigationPolygon_pbf1e")

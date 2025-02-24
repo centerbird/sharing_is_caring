@@ -1,6 +1,8 @@
 class_name Village extends Area2D
 ## TODO
 
+@export var villager_scene : PackedScene
+
 ## Signals that this[Village] has received a delivery of resources.
 signal resource_delivery
 
@@ -20,9 +22,13 @@ func get_id():
 	return _id
 
 func _after_ready():
-	var villager = preload("res://Scenes/villager.tscn").instantiate()
-	villager.setup(self)
-	villager.global_position = global_position
-	get_window().add_child(villager)
-	print(position)
-	print(villager.position)
+	var villager = villager_scene.instantiate()
+	villager.setup(self, $"../ResourceTile")
+	villager.global_position = global_position - Vector2(0,387)
+	#get_window().add_child(villager)
+	$"..".add_child(villager)
+	
+
+func _on_body_entered(area: Node2D) -> void:
+	area.target = area._resourceNode
+	print("Resource trigger")

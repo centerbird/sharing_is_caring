@@ -37,5 +37,10 @@ func consume() -> bool:
 		return false
 
 
+func _ready() -> void:
+	print("resource tile ready")
+	print(global_position)
+
 func _on_body_entered(area: Node2D) -> void:
 	area.target = area._village
+	print("tile trigger")
