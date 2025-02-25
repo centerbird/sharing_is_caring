@@ -24,11 +24,14 @@ func get_id():
 func _after_ready():
 	var villager = villager_scene.instantiate()
 	villager.setup(self, $"../ResourceTile")
-	villager.global_position = global_position - Vector2(0,387)
+	villager.position = position
 	#get_window().add_child(villager)
 	$"..".add_child(villager)
+	print("Village at: ", global_position)
+	print("Villager at: ", villager.global_position)
 	
 
 func _on_body_entered(area: Node2D) -> void:
 	area.target = area._resourceNode
-	print("Resource trigger")
+	print("village trigger")
+	print(area.target.global_position)

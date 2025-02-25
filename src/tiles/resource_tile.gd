@@ -43,4 +43,5 @@ func _ready() -> void:
 
 func _on_body_entered(area: Node2D) -> void:
 	area.target = area._village
-	print("tile trigger")
+	print("resource trigger")
+	print(area.target.global_position)
