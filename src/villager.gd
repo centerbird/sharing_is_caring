@@ -9,13 +9,13 @@ func _ready():
 	navigation_agent.path_desired_distance = 4.0
 	navigation_agent.target_desired_distance = 4.0
 	
-	print("Spawned at: ", global_position)
 	
 	# Make sure to not await during _ready.
 	actor_setup.call_deferred()
 
 func actor_setup():
 	# Wait for the first physics frame so the NavigationServer can sync.
+	$".."/"..".bake_navigation_polygon()
 	await get_tree().physics_frame
 	
 	# Now that the navigation map is no longer empty, set the movement target.
@@ -67,5 +67,3 @@ func setup(village : Node, resourceNode: Node):
 	_village = village
 	_resourceNode = resourceNode
 	target = _resourceNode
-	print("target acquired")
-	print(target.global_position)

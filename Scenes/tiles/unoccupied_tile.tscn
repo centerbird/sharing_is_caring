@@ -19,11 +19,13 @@ offset_bottom = 64.0
 scale = Vector2(2, 2)
 texture = ExtResource("2_jktbw")
 
-[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+[node name="Area2D" type="Area2D" parent="."]
 
-[node name="Area2D" type="Area2D" parent="NavigationObstacle2D"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationObstacle2D/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_b553j")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="Area2D/CollisionShape2D"]
+vertices = PackedVector2Array(-65, -65, 65, -65, 65, 65, -65, 65)
+affect_navigation_mesh = true
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

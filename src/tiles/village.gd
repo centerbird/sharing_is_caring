@@ -27,11 +27,7 @@ func _after_ready():
 	villager.position = position
 	#get_window().add_child(villager)
 	$"..".add_child(villager)
-	print("Village at: ", global_position)
-	print("Villager at: ", villager.global_position)
-	
+
 
 func _on_body_entered(area: Node2D) -> void:
 	area.target = area._resourceNode
-	print("village trigger")
-	print(area.target.global_position)
