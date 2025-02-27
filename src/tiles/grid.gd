@@ -120,6 +120,7 @@ func _on_enlarge() -> void:
 	position.x += _old_offset.x * 2#(1031.0 * (1.0 - scale.x) / 2.0) # TODO : update position properly
 	position.y += _old_offset.y * 2#(645.0 * (1.0 - scale.y) / 2.0) # TODO : update position properly
 	_fill_around()
+	$"..".bake_navigation_polygon()
 
 # Fills the immediate area surrounding with a one tile thick line if tiles.
 func _fill_around():
