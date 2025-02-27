@@ -16,7 +16,7 @@ signal depleted
 var _connected_to_village := false
 
 ## Determines when the node becomes a [Battlefield].
-func village_connection():
+func village_connection() -> void:
 	if _connected_to_village:
 		battle_start.emit(position)
 		queue_free()

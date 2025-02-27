@@ -47,7 +47,7 @@ func conect_village(village : Village):
 		connected[1] = true
 
 # TODO
-func hive_mind():
+func hive_mind() -> void:
 	# Check surroundings (get_overlapping_areas());
 	var areas = get_overlapping_areas()
 	var north : Array

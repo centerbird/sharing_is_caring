@@ -1,8 +1,10 @@
 class_name Villager extends CharacterBody2D
-## [Villager]s follow paths and move though their own [Village]s to bring resources to thier [Village]s. TODO
-## @experimental : not yet complete
+## [Villager]s follow paths to bring resources to thier [Village]s.
+##
+## [Villager]s are meant to be directed towards different targets, through paths that go through [PathTile]s.
+## @experimental : TODO
 
-
+## Sets initial animation.
 func _ready():
 	$AnimatedSprite2D.play("walk")
 	# These values need to be adjusted for the actor's speed and the navigation layout.
@@ -56,6 +58,20 @@ func _physics_process(delta):
 	
 	#velocity = velocity.lerp(direction * SPEED, ACCELERATION * delta)
 	move_and_slide()
+
+## Learn the destination of this [Villager].
+## [br][br]
+## [code]Return[/code] : 
+func get_destination() -> String: #TODO
+	return ""
+
+## Change this [Villager]'s destination.
+## [br][br]
+## [param dir] : The new direction for the [Villager]. The direction should be as it appears on the node tree.
+## [br][br]
+## [b]Note:[/b] Has no effect if [Villager] is carrying resources.
+func give_direction(dir : String): #TODO
+	pass
 
 func _on_timer_timeout():
 	

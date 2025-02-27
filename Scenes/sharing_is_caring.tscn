@@ -24,6 +24,8 @@ navigation_polygon = SubResource("NavigationPolygon_ao0kf")
 
 [node name="Grid" parent="NavigationRegion2D" instance=ExtResource("3_kq8im")]
 position = Vector2(0, 403)
+village_spawn_rate = 2
+resource_spawn_rate = 5
 
 [node name="LandingPage" parent="." instance=ExtResource("4_xsvgf")]
 

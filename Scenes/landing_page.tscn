@@ -49,6 +49,7 @@ position = Vector2(700, 400)
 texture = ExtResource("3_3con3")
 
 [node name="StartButtonImg" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(518.5, 904)
 scale = Vector2(1.32708, 1)
 texture = ExtResource("4_0m1dh")
@@ -68,6 +69,7 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 48
+disabled = true
 text = "Nothing can go wrong"
 flat = true
 
