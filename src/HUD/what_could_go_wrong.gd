@@ -45,7 +45,7 @@ func _on_button_pressed() -> void:
 	if _button_ready:
 		_button_ready = false
 		enlarge_grid.emit()
-		
+		# Rebaking navigation grid on rescale
 		await get_tree().create_timer(.2).timeout
 		$".."/".."/NavigationRegion2D.bake_navigation_polygon() #Hud/SharingIsCaring/NavigationRegion2D
 		
