@@ -120,7 +120,7 @@ func _on_enlarge() -> void:
 	position.x += _old_offset.x * 2#(1031.0 * (1.0 - scale.x) / 2.0) # TODO : update position properly
 	position.y += _old_offset.y * 2#(645.0 * (1.0 - scale.y) / 2.0) # TODO : update position properly
 	_fill_around()
-	$"..".bake_navigation_polygon() 
+	$"..".bake_navigation_polygon()
 
 # Fills the immediate area surrounding with a one tile thick line if tiles.
 func _fill_around():
@@ -139,7 +139,6 @@ func _fill_around():
 		spawn_tile(location, _get_random_tile_instance())
 		location = calc_location(new_dimensions.x - 1, tile_ordinate)
 		spawn_tile(location, _get_random_tile_instance())
-
 
 # Instantiates a random tile from the allowed options.
 # [code]Returns[/code] : The instance of the newly instantiated tile.

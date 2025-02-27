@@ -45,8 +45,7 @@ func _on_button_pressed() -> void:
 	if _button_ready:
 		_button_ready = false
 		enlarge_grid.emit()
-		
-		
+		# Makes the button unavailable for a set amount of time.
 		_await()
 
 # Makes the button unavailable for a set amount of time.
