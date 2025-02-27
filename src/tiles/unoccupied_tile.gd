@@ -14,3 +14,4 @@ signal expired
 func _on_button_pressed() -> void:
 	expired.emit(position)
 	queue_free()
+	

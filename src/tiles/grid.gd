@@ -86,7 +86,7 @@ func populate() -> void:
 func calc_location(x : int, y : int) -> Vector2:
 	return Vector2(offset + (2 * offset * x) + x, offset + (2 * offset * y) + y)
 
-## ## Spawns a node at a given location.
+## Spawns a node at a given location.
 ## [br][br]
 ## [param location] : The position (relative to grid) at which to spawn the node.
 func spawn_tile(location : Vector2, instance : Node2D) -> void:
@@ -105,19 +105,20 @@ func spawn_tile(location : Vector2, instance : Node2D) -> void:
 			_village_number += 1
 			new_village.emit(instance)
 			instance.modulate = SharingIsCaring.VillageColors[instance.get_id()]
-	add_child(instance)
 	instance.position = location
+	add_child(instance)
 
 ## Rescales the [Grid] and populates the newly appeared empty area.
 func _on_enlarge() -> void:
 	var old_dimensions = _new_dimensions
 	_new_dimensions += Vector2.ONE * 2
 	scale.x = scale.x * (float(old_dimensions.x)/float(_new_dimensions.x)) # TODO maybe one day do actual calculations that are dynamic to different grid shapes and layouts; this applies for the three following TODOs as well
+
 	scale.y = scale.y * (float(old_dimensions.y)/float(_new_dimensions.y)) # TODO
 	#position += old_dimensions * (Vector2.ONE + _old_offset * 2) / _new_dimensions - scale
 	_old_offset = _old_offset * scale
-	#position.x += (1031.0 * (1.0 - scale.x) / 2.0) # TODO
-	#position.y += (645.0 * (1.0 - scale.y) / 2.0) # TODO
+	position.x += _old_offset.x * 2#(1031.0 * (1.0 - scale.x) / 2.0) # TODO : update position properly
+	position.y += _old_offset.y * 2#(645.0 * (1.0 - scale.y) / 2.0) # TODO : update position properly
 	_fill_around()
 
 # Fills the immediate area surrounding with a one tile thick line if tiles.

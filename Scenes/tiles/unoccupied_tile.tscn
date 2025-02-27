@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://bpx0olkfuvi65"]
+[gd_scene load_steps=4 format=3 uid="uid://bpx0olkfuvi65"]
 
 [ext_resource type="Script" path="res://src/tiles/unoccupied_tile.gd" id="1_ywhfo"]
 [ext_resource type="Texture2D" uid="uid://d26ian4ttc8kr" path="res://assets/nautral_simple.png" id="2_jktbw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b553j"]
+size = Vector2(130, 130)
 
 [node name="UnoccupiedTile" type="Node2D"]
 script = ExtResource("1_ywhfo")
@@ -15,5 +18,14 @@ offset_bottom = 64.0
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
 texture = ExtResource("2_jktbw")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_b553j")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="Area2D/CollisionShape2D"]
+vertices = PackedVector2Array(-65, -65, 65, -65, 65, 65, -65, 65)
+affect_navigation_mesh = true
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

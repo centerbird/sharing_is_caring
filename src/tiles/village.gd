@@ -3,6 +3,8 @@ class_name Village extends Area2D
 ##
 ## Mainly tasked with spawning [Villager]s and directing them towards different targets.
 
+@export var villager_scene : PackedScene
+
 ## Signals that this[Village] has received a delivery of resources.
 signal resource_delivery
 
@@ -20,3 +22,14 @@ func id(id_no : int) -> void:
 ## [code]Returns[/code] : ID of the village.
 func get_id() -> int:
 	return _id
+
+func _after_ready():
+	var villager = villager_scene.instantiate()
+	villager.setup(self, $"../ResourceTile")
+	villager.position = position
+	#get_window().add_child(villager)
+	$"..".add_child(villager)
+
+
+func _on_body_entered(area: Node2D) -> void:
+	area.target = area._resourceNode

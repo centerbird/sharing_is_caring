@@ -35,3 +35,7 @@ func consume() -> bool:
 		return true
 	else:
 		return false
+
+
+func _on_body_entered(area: Node2D) -> void:
+	area.target = area._village
