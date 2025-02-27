@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cskjvx83suloi"]
 
-[ext_resource type="Script" path="res://Scenes/landing_page.gd" id="1_v81ao"]
+[ext_resource type="Script" path="res://src/landing_page.gd" id="1_v81ao"]
 [ext_resource type="Texture2D" uid="uid://dcladelg0ljtd" path="res://assets/intro_button.png" id="2_gax3n"]
 [ext_resource type="Texture2D" uid="uid://b606g0m5bvqjd" path="res://assets/forest_bg.png" id="3_3con3"]
 [ext_resource type="Texture2D" uid="uid://c5ke1i10e0oq8" path="res://assets/start_button.png" id="4_0m1dh"]

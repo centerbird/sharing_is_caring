@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://dgyteunfng7ua"]
+
+[ext_resource type="Script" path="res://src/sharing_is_caring.gd" id="1_vngij"]
+[ext_resource type="PackedScene" uid="uid://bkrf7fhefogpy" path="res://Scenes/HUD/HUD.tscn" id="2_nm6qv"]
+[ext_resource type="PackedScene" uid="uid://cmuj8b7jrfgb2" path="res://Scenes/tiles/grid.tscn" id="3_kq8im"]
+[ext_resource type="PackedScene" uid="uid://cskjvx83suloi" path="res://Scenes/landing_page.tscn" id="4_xsvgf"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_ao0kf"]
+vertices = PackedVector2Array(1031, 1047, 0, 1047, 0, 403, 1031, 403)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-10, 393, 1041, 393, 1041, 1057, -10, 1057)])
+
+[node name="SharingIsCaring" type="Node2D"]
+script = ExtResource("1_vngij")
+
+[node name="Hud" parent="." instance=ExtResource("2_nm6qv")]
+z_index = 1
+position = Vector2(0, 1)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+z_index = 2
+position = Vector2(0, -16)
+navigation_polygon = SubResource("NavigationPolygon_ao0kf")
+
+[node name="Grid" parent="NavigationRegion2D" instance=ExtResource("3_kq8im")]
+position = Vector2(0, 403)
+
+[node name="LandingPage" parent="." instance=ExtResource("4_xsvgf")]
+
+[connection signal="enlarge_grid" from="Hud" to="NavigationRegion2D/Grid" method="_on_enlarge"]
+[connection signal="new_village" from="NavigationRegion2D/Grid" to="." method="_on_new_village"]
+[connection signal="start" from="LandingPage" to="NavigationRegion2D/Grid" method="_on_start"]

@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Sharing is Caring"
+run/main_scene="res://Scenes/sharing_is_caring.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 

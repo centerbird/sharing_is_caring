@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://biyrhl41i44oc"]
+
+[ext_resource type="Script" path="res://src/villager.gd" id="1_nfnsv"]
+[ext_resource type="Texture2D" uid="uid://b1plvy6xt600f" path="res://assets/villager_carrying.png" id="2_j4iln"]
+[ext_resource type="Texture2D" uid="uid://cdigjbxl15ehc" path="res://assets/villager_simple.png" id="3_ckq25"]
+[ext_resource type="Texture2D" uid="uid://cbeyu1tc726v1" path="res://assets/villager_empty.png" id="4_n0ubt"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_54pqi"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_j4iln")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ckq25")
+}],
+"loop": true,
+"name": &"carry",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_n0ubt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ckq25")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4fapr"]
+size = Vector2(42, 64)
+
+[node name="Villager" type="CharacterBody2D"]
+z_index = 2
+script = ExtResource("1_nfnsv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_54pqi")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_4fapr")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+debug_enabled = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

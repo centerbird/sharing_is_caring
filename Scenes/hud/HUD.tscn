@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://bkrf7fhefogpy"]
+
+[ext_resource type="Texture2D" uid="uid://0ysc4tjxe236" path="res://assets/empty_square_64.png" id="1_062qj"]
+[ext_resource type="Script" path="res://src/HUD/hud.gd" id="1_883xs"]
+[ext_resource type="PackedScene" uid="uid://70ddmtmdnke1" path="res://Scenes/HUD/what_could_go_wrong.tscn" id="2_s4ajo"]
+[ext_resource type="PackedScene" uid="uid://b2ec058iuwxmf" path="res://Scenes/HUD/health/health_bar.tscn" id="4_nf0km"]
+
+[node name="Hud" type="Node2D"]
+script = ExtResource("1_883xs")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.390898, 0.407875, 0.748716, 1)
+offset_right = 1031.0
+offset_bottom = 386.0
+texture = ExtResource("1_062qj")
+
+[node name="WhatCouldGoWrong" parent="." instance=ExtResource("2_s4ajo")]
+position = Vector2(515, 362)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 22.0
+autostart = true
+
+[node name="HealthBar1" parent="." instance=ExtResource("4_nf0km")]
+position = Vector2(85, 45)
+
+[node name="HealthBar2" parent="." instance=ExtResource("4_nf0km")]
+position = Vector2(85, 111)
+
+[node name="HealthBar3" parent="." instance=ExtResource("4_nf0km")]
+position = Vector2(85, 177)
+
+[node name="HealthBar4" parent="." instance=ExtResource("4_nf0km")]
+position = Vector2(85, 243)
+
+[node name="HealthBar5" parent="." instance=ExtResource("4_nf0km")]
+position = Vector2(85, 309)
+
+[connection signal="enlarge_grid" from="WhatCouldGoWrong" to="." method="_on_button_press"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="game_over" from="HealthBar1" to="." method="_on_health_bar_game_over"]
+[connection signal="game_over" from="HealthBar2" to="." method="_on_health_bar_game_over"]
+[connection signal="game_over" from="HealthBar3" to="." method="_on_health_bar_game_over"]
+[connection signal="game_over" from="HealthBar4" to="." method="_on_health_bar_game_over"]
+[connection signal="game_over" from="HealthBar5" to="." method="_on_game_over"]
