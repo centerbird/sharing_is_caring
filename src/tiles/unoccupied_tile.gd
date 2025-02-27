@@ -18,3 +18,4 @@ func _on_button_pressed() -> void:
 	#get_window().add_child(path)
 	expired.emit(position)
 	queue_free()
+	

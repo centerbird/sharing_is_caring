@@ -45,13 +45,12 @@ animation = &"walk"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_4fapr")
 
-[node name="Navigation" type="Node2D" parent="."]
-position = Vector2(307, 245)
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Navigation"]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_postprocessing = 1
 debug_enabled = true
 
-[node name="Timer" type="Timer" parent="Navigation"]
+[node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
 autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

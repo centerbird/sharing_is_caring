@@ -105,8 +105,10 @@ func spawn_tile(location : Vector2, instance : Node2D) -> void:
 			_village_number += 1
 			new_village.emit(instance)
 			instance.modulate = SharingIsCaring.VillageColors[instance.get_id()]
-	add_child(instance)
 	instance.position = location
+	add_child(instance)
+
+
 
 ## Rescales the [Grid] and populates the newly appeared empty area.
 func _on_enlarge() -> void:
@@ -119,7 +121,7 @@ func _on_enlarge() -> void:
 	position.y += _old_offset.y * 2#(645.0 * (1.0 - scale.y) / 2.0) # TODO
 	_fill_around()
 
-# Fills the immediate area surrounding with a one tile thich line if tiles.
+# Fills the immediate area surrounding with a one tile thick line if tiles.
 func _fill_around():
 	var location : Vector2
 	_new_zero -= 1

@@ -18,6 +18,10 @@ var direction_list : Dictionary
 ## Signals that a battle has started on this tile.
 signal battle_start
 
+func _ready():
+	await get_tree().create_timer(.2).timeout
+	$".."/"..".bake_navigation_polygon()
+
 # TODO
 #func _ready():
 	#area_entered.connect(_on_area_entered)
