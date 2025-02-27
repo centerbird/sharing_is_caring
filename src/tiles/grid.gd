@@ -113,17 +113,17 @@ func _on_enlarge() -> void:
 	var old_dimensions = _new_dimensions
 	_new_dimensions += Vector2.ONE * 2
 	scale.x = scale.x * (float(old_dimensions.x)/float(_new_dimensions.x)) # TODO maybe one day do actual calculations that are dynamic to different grid shapes and layouts; this applies for the three following TODOs as well
-	scale.y = scale.y * (old_dimensions.y/_new_dimensions.y) # TODO
+	scale.y = scale.y * (float(old_dimensions.y)/float(_new_dimensions.y)) # TODO
+	#position += old_dimensions * (Vector2.ONE + _old_offset * 2) / _new_dimensions - scale
 	_old_offset = _old_offset * scale
-	position.x += _old_offset.x * 2#(1031.0 * (1.0 - scale.x) / 2.0) # TODO
-	position.y += _old_offset.y * 2#(645.0 * (1.0 - scale.y) / 2.0) # TODO
+	#position.x += (1031.0 * (1.0 - scale.x) / 2.0) # TODO
+	#position.y += (645.0 * (1.0 - scale.y) / 2.0) # TODO
 	_fill_around()
 
-# Fills the immediate area surrounding with a one tile thich line if tiles.
+# Fills the immediate area surrounding with a one tile thick line if tiles.
 func _fill_around():
 	var location : Vector2
 	_new_zero -= 1
-	#var new_dimensions = dimensions - Vector2(_new_zero, _new_zero)
 	# fill top and bottom
 	var new_dimensions = _new_dimensions + (Vector2.ONE * _new_zero)
 	for tile_abscissa in range(_new_zero, new_dimensions.x):
@@ -142,14 +142,11 @@ func _fill_around():
 # [code]Returns[/code] : The instance of the newly instantiated tile.
 func _get_random_tile_instance() -> Node2D:
 	var x = _rng.randi_range(0, 100)
-	print(x)
 	match x:
 		x when x < village_spawn_rate:
-			print("Village : "+str(x))
 			if _village_number != max_villages:
 				return village.instantiate()
 		x when (x - village_spawn_rate) < resource_spawn_rate:
-			print("Resource : "+str(x-village_spawn_rate))
 			return resource.instantiate()
 	return empty.instantiate()
 
