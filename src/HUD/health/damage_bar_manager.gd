@@ -6,10 +6,6 @@ class_name DamageBarManager extends Node2D
 ## Signals that the game is over.
 signal game_over
 
-## Hides the hud element.
-func _ready() -> void:
-	hide()
-
 ## Renders health bar visible and changes its color according to the given village ID.
 ## [br][br]
 ## [param village_id] : Index designating the village. A number 0 or above; this number signifies which healthbar on the HUD this [Village] is associated to.
