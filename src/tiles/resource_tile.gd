@@ -39,3 +39,4 @@ func consume() -> bool:
 
 func _on_body_entered(area: Node2D) -> void:
 	area.target = area._village
+	area.loaded = true

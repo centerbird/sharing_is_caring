@@ -33,3 +33,6 @@ func _after_ready():
 
 func _on_body_entered(area: Node2D) -> void:
 	area.target = area._resourceNode
+	if area.loaded == true:
+		area.loaded = false
+		resource_delivery.emit()

@@ -9,6 +9,7 @@ class_name Villager extends CharacterBody2D
 var target : Node
 var _resourceNode : Node
 var _village : Node
+var loaded : bool
 
 @export var SPEED = 300
 @export var ACCELERATION = 7
@@ -28,9 +29,10 @@ func _ready():
 # TODO
 func actor_setup():
 	# Wait for the first physics frame so the NavigationServer can sync.
-	$".."/"..".bake_navigation_polygon()
 	await get_tree().physics_frame
+	$".."/"..".bake_navigation_polygon()
 	
+	loaded = false
 	# Now that the navigation map is no longer empty, set the movement target.
 	set_movement_target(target.global_position)
 	#var test_location = Vector2(300, 600)
