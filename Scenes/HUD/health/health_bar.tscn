@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://pxf0nt8u84je" path="res://Scenes/HUD/health/damage_bar.tscn" id="3_c5blo"]
 
 [node name="HealthBar" type="Node2D"]
+visible = false
 script = ExtResource("1_f206b")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

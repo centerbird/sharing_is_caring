@@ -27,9 +27,12 @@ func _after_ready():
 	var villager = villager_scene.instantiate()
 	villager.setup(self, $"../ResourceTile")
 	villager.position = position
-	#get_window().add_child(villager)
 	$"..".add_child(villager)
 
 
 func _on_body_entered(area: Node2D) -> void:
 	area.target = area._resourceNode
+	if area.loaded == true:
+		# TODO if hungry do below
+		area.loaded = false
+		resource_delivery.emit(get_id())

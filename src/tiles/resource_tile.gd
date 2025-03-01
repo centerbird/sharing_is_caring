@@ -15,6 +15,13 @@ signal depleted
 # Checks if this node is connected to any villages by paths.
 var _connected_to_village := false
 
+
+func _ready():
+	#Fill the contents of the node
+	$ProgressBar.max_value = content
+	$ProgressBar.value = content
+
+
 ## Determines when the node becomes a [Battlefield].
 func village_connection() -> void:
 	if _connected_to_village:
@@ -29,6 +36,7 @@ func village_connection() -> void:
 func consume() -> bool:
 	if content > 0:
 		content -= 1
+		$ProgressBar.value = content
 		if content == 0:
 			depleted.emit(position)
 			queue_free()
@@ -39,3 +47,5 @@ func consume() -> bool:
 
 func _on_body_entered(area: Node2D) -> void:
 	area.target = area._village
+	area.loaded = true
+	consume()
