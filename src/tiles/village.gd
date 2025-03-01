@@ -27,7 +27,6 @@ func _after_ready():
 	var villager = villager_scene.instantiate()
 	villager.setup(self, $"../ResourceTile")
 	villager.position = position
-	#get_window().add_child(villager)
 	$"..".add_child(villager)
 
 
