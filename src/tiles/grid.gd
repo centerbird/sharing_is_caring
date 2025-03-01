@@ -43,7 +43,7 @@ class_name Grid extends Node2D
 @export var destroyed := preload("res://Scenes/tiles/destroyed.tscn")
 
 ## A battle tile.
-##[br][br] After letting villagers kill eachother, these tiles disappear.
+## [br][br] After letting villagers kill eachother, these tiles disappear.
 @export var battlefield := preload("res://Scenes/tiles/battlefield.tscn")
 
 
@@ -119,9 +119,9 @@ func populate() -> void:
 ## Used to calculate the prospective positions of Tiles before they are spawned.
 ## [br]
 ## The calculated position is proportionate to grid; it is [b]not the global position[/b].
-## [br][br]
-## [param x] : horizontal order of the tile in grid
-## [param y] : bertical order of the tile in grid
+## [br]
+## [br][param x] : horizontal order of the tile in grid
+## [br][param y] : bertical order of the tile in grid
 ## [br][br]
 ## [code]Returns[/code] : [member postion] of the tile
 func calc_location(x : int, y : int) -> Vector2:
@@ -233,4 +233,4 @@ func _on_empty_expire(location : Vector2) -> void:
 # Behaviour to take at the very start of the game. Populates the initial range of [Grid].
 func _on_start() -> void:
 	populate()
-	$"..".bake_navigation_polygon()
+	rebake.emit()
