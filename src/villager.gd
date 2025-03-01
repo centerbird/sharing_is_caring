@@ -28,7 +28,6 @@ func _ready():
 # TODO
 func actor_setup():
 	# Wait for the first physics frame so the NavigationServer can sync.
-	$".."/"..".bake_navigation_polygon()
 	await get_tree().physics_frame
 	
 	# Now that the navigation map is no longer empty, set the movement target.
