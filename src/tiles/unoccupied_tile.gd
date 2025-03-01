@@ -12,6 +12,8 @@ signal expired
 
 ## Transforms this scene into a [PathTile]... by instantiating a [PathTile] and destroying this [UnoccuppiedTile].
 func _on_button_pressed() -> void:
+	$Area2D/CollisionShape2D/NavigationObstacle2D.affect_navigation_mesh = false
+	$Area2D/CollisionShape2D/NavigationObstacle2D.avoidance_enabled = false
 	expired.emit(position)
 	queue_free()
 	

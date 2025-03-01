@@ -6,6 +6,13 @@ class_name HUD extends Node2D
 ## Signals grid to enlarge/zoom out/go to next level/whatever
 signal enlarge_grid
 
+## The amount of time by which the delay between button activations increase each time.
+@export var linear_increase : int = 0
+
+## TODO
+func _ready() -> void:
+	$WhatCouldGoWrong.linear_increase = linear_increase
+
 ## Connects a village to its respective health bar.
 ## [br][br] [param village] : the village that has finally become vulnerable to damage.
 func connect_village(village : Village) -> void:
