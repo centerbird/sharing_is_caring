@@ -35,7 +35,7 @@ func actor_setup():
 	
 	# Wait for the first physics frame so the NavigationServer can sync.
 	await get_tree().physics_frame
-	$".."/"..".bake_navigation_polygon()
+	
 	# Now that the navigation map is no longer empty, set the movement target.
 	set_movement_target(target.global_position)
 	#var test_location = Vector2(300, 600)

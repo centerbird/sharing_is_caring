@@ -172,3 +172,4 @@ func _on_empty_expire(location : Vector2) -> void:
 # Behaviour to take at the very start of the game. Populates the initial range of [Grid].
 func _on_start() -> void:
 	populate()
+	$"..".bake_navigation_polygon()

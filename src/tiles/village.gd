@@ -34,5 +34,6 @@ func _after_ready():
 func _on_body_entered(area: Node2D) -> void:
 	area.target = area._resourceNode
 	if area.loaded == true:
+		# TODO if hungry do below
 		area.loaded = false
-		resource_delivery.emit()
+		resource_delivery.emit(get_id())
