@@ -232,7 +232,6 @@ func _on_battle_start(location : Vector2) -> void: # TODO : tell people about th
 func _on_empty_expire(location : Vector2) -> void:
 	spawn_tile(location, path.instantiate())
 	rebake.emit()
-	print("path")
 
 # Behaviour to take at the very start of the game. Populates the initial range of [Grid].
 func _on_start() -> void:

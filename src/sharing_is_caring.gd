@@ -14,4 +14,4 @@ func _on_new_village(village : Village) -> void:
 
 ## Zooms out the game world and spawns new Tiles.
 func _on_enlarge() -> void:
-	$NavigationRegion2D.Grid.enlarge()
+	$NavigationRegion2D/Grid.enlarge()
