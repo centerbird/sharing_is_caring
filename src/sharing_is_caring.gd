@@ -11,3 +11,7 @@ const VillageColors : Array[Color] = [Color.CYAN, Color.MAGENTA, Color.GOLDENROD
 ## [param village] : The new [Village] to be connected.
 func _on_new_village(village : Village) -> void:
 	$Hud.connect_village(village)
+
+## Zooms out the game world and spawns new Tiles.
+func _on_enlarge() -> void:
+	$NavigationRegion2D.Grid.enlarge()

@@ -83,7 +83,7 @@ func _on_timer_timeout():
 		set_movement_target(target.global_position)
 
 
-#Setup is called by village node to send info about village node that spawned this villager 
+# Setup is called by village node to send info about village node that spawned this villager 
 #	and resource node this villager should start moving towards
 #	other setup functions are handled by _ready() and actor_setup()
 func setup(village : Node, resourceNode: Node):

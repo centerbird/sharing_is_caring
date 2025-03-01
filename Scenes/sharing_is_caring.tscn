@@ -29,6 +29,6 @@ resource_spawn_rate = 5
 
 [node name="LandingPage" parent="." instance=ExtResource("4_xsvgf")]
 
-[connection signal="enlarge_grid" from="Hud" to="NavigationRegion2D/Grid" method="_on_enlarge"]
+[connection signal="enlarge_grid" from="Hud" to="." method="_on_enlarge"]
 [connection signal="new_village" from="NavigationRegion2D/Grid" to="." method="_on_new_village"]
 [connection signal="start" from="LandingPage" to="NavigationRegion2D/Grid" method="_on_start"]
