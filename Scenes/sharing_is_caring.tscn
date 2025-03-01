@@ -31,4 +31,5 @@ resource_spawn_rate = 5
 
 [connection signal="enlarge_grid" from="Hud" to="." method="_on_enlarge"]
 [connection signal="new_village" from="NavigationRegion2D/Grid" to="." method="_on_new_village"]
+[connection signal="rebake" from="NavigationRegion2D/Grid" to="NavigationRegion2D" method="bake_navigation_polygon"]
 [connection signal="start" from="LandingPage" to="NavigationRegion2D/Grid" method="_on_start"]
