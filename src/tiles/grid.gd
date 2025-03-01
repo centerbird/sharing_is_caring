@@ -14,7 +14,7 @@ class_name Grid extends Node2D
 ## [b]Note:[/b] The [i]width[/i] and [i]hight[/i] of each "Tile" must be [b]twice[/b] this amount to ensure proper visual placement.
 @export var offset : float = 64
 
-## The mximum number of [Villages] allowed in the game.
+## The maximum number of [Villages] allowed in the game.
 @export var max_villages : int = 5
 
 
@@ -31,7 +31,7 @@ class_name Grid extends Node2D
 ## The most common type of tile.
 @export var empty := preload("res://Scenes/tiles/unoccupied_tile.tscn")
 
-## Resource tiles serve as fuel for [Village]s. TODO : connect signal at spawn
+## Resource tiles serve as fuel for [Village]s.
 @export var resource := preload("res://Scenes/tiles/resource_tile.tscn")
 
 ## A path tile.
@@ -125,7 +125,7 @@ func populate() -> void:
 ## [br][br]
 ## [code]Returns[/code] : [member postion] of the tile
 func calc_location(x : int, y : int) -> Vector2:
-	return Vector2(offset + (2 * offset * x) + x, offset + (2 * offset * y) + y)
+	return Vector2(offset + (2 * offset * x), offset + (2 * offset * y))
 
 ## Spawns a node at a given location.
 ## [br][br]
@@ -144,8 +144,8 @@ func spawn_tile(location : Vector2, instance : Node2D) -> void:
 		Village:
 			instance.id(_village_number)
 			_village_number += 1
-			new_village.emit(instance)
 			instance.modulate = SharingIsCaring.VillageColors[instance.get_id()]
+			new_village.emit(instance)
 	instance.position = location
 	add_child(instance)
 
@@ -153,17 +153,16 @@ func spawn_tile(location : Vector2, instance : Node2D) -> void:
 func enlarge() -> void:
 	var old_dimensions = _new_dimensions
 	_new_dimensions += Vector2.ONE * 2
-	scale.x = scale.x * (float(old_dimensions.x)/float(_new_dimensions.x)) # TODO maybe one day do actual calculations that are dynamic to different grid shapes and layouts; this applies for the three following TODOs as well
-
-	scale.y = scale.y * (float(old_dimensions.y)/float(_new_dimensions.y)) # TODO
-	#position += old_dimensions * (Vector2.ONE + _old_offset * 2) / _new_dimensions - scale
+	scale.x = scale.x * (float(old_dimensions.x)/float(_new_dimensions.x))
+	scale.y = scale.y * (float(old_dimensions.y)/float(_new_dimensions.y))
 	_old_offset = _old_offset * scale
-	position.x += _old_offset.x * 2#(1031.0 * (1.0 - scale.x) / 2.0) # TODO : update position properly
-	position.y += _old_offset.y * 2#(645.0 * (1.0 - scale.y) / 2.0) # TODO : update position properly
+	position += _old_offset * 2
 	fill_around()
 	rebake.emit()
 
 ## Fills the immediate area surrounding the currently existing game world with a one tile thick line if tiles.
+## [br][br]
+## [b]Note:[/b] If called before [method populate], fills around the area defined by [member dimensions].
 func fill_around():
 	var location : Vector2
 	_new_zero -= 1
@@ -184,7 +183,7 @@ func fill_around():
 
 # --PRIVATE METHODS--
 
-# Rests the game world. # TODO : TEST
+# Resets the game world.
 func _reset() -> void:
 	for child in get_children():
 		remove_child(child)
@@ -220,7 +219,7 @@ func _on_destruction(location : Vector2) -> void:
 	rebake.emit()
 
 # Spawns battlefield.
-func _on_battle_start(location : Vector2) -> void: # TODO : tell people about the started battle
+func _on_battle_start(location : Vector2) -> void: # TODO : tell people about the started battle?
 	spawn_tile(location, battlefield.instantiate())
 
 # Defines the behaviour when an unoccupied tile becomes a path.
@@ -233,4 +232,3 @@ func _on_empty_expire(location : Vector2) -> void:
 # Behaviour to take at the very start of the game. Populates the initial range of [Grid].
 func _on_start() -> void:
 	populate()
-	rebake.emit()
