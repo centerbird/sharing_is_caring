@@ -64,9 +64,6 @@ var _village_number : int = 0
 # Keeps track of how small the grid has become
 var _new_zero : int = 0
 
-# Keeps track of whether a [NavigationRegion2D] parent should rebake
-var _should_rebake : bool = false
-
 
 # --PROPERTIES UPDATED ON INSTANTIATION--
 
