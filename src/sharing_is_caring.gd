@@ -3,7 +3,12 @@ class_name SharingIsCaring extends Node2D
 ##
 ## [b]Note:[/b] .
 
+## The [HUD] reference from this scene.
 @export var hud : HUD
+
+## The [Grid] reference from this scene.
+@export var grid : Grid
+
 ## Colors associated with [Village]s in order of appearance.
 const VillageColors : Array[Color] = [Color.CYAN, Color.MAGENTA, Color.GOLDENROD, Color.LAWN_GREEN, Color.TURQUOISE]
 
@@ -15,4 +20,4 @@ func _on_new_village(village : Village) -> void:
 
 ## Zooms out the game world and spawns new Tiles.
 func _on_enlarge() -> void:
-	$NavigationRegion2D/Grid.enlarge()
+	grid.enlarge()

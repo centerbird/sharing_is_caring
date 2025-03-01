@@ -10,9 +10,10 @@ vertices = PackedVector2Array(1031, 1047, 0, 1047, 0, 403, 1031, 403)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-10, 393, 1041, 393, 1041, 1057, -10, 1057)])
 
-[node name="SharingIsCaring" type="Node2D" node_paths=PackedStringArray("hud")]
+[node name="SharingIsCaring" type="Node2D" node_paths=PackedStringArray("hud", "grid")]
 script = ExtResource("1_vngij")
 hud = NodePath("Hud")
+grid = NodePath("NavigationRegion2D/Grid")
 
 [node name="Hud" parent="." instance=ExtResource("2_nm6qv")]
 z_index = 1
