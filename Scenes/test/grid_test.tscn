@@ -4,14 +4,15 @@
 [ext_resource type="Texture2D" uid="uid://0ysc4tjxe236" path="res://assets/empty_square_64.png" id="2_np7s6"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_vpoh2"]
-vertices = PackedVector2Array(1021, 633.992, 10, 633, 10, 10, 1021, 10)
+vertices = PackedVector2Array(630, 630, 10, 630, 10, 10, 630, 10)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 0, 643, 1031, 644, 1031, 0)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 0, 640, 640, 640, 640, 0)])
 
 [node name="NavigationRegion2D" type="NavigationRegion2D"]
 navigation_polygon = SubResource("NavigationPolygon_vpoh2")
 
 [node name="Grid" type="Node2D" parent="."]
+position = Vector2(320, 320)
 script = ExtResource("1_dvmxp")
 resource_spawn_rate = 3
 
@@ -42,6 +43,7 @@ text = "Reset"
 position = Vector2(1031, 644)
 
 [node name="Right Border" type="Label" parent="."]
+modulate = Color(0.2484, 0.2484, 0.2484, 1)
 z_index = -1
 offset_left = 640.0
 offset_right = 869.0
@@ -57,6 +59,7 @@ scale = Vector2(0.25, 12.0625)
 texture = ExtResource("2_np7s6")
 
 [node name="Bottom Border" type="Label" parent="."]
+modulate = Color(0.2484, 0.2484, 0.2484, 1)
 z_index = -1
 offset_top = 640.0
 offset_right = 756.0

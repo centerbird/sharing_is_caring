@@ -1,17 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://dgyteunfng7ua"]
+[gd_scene load_steps=7 format=3 uid="uid://dgyteunfng7ua"]
 
 [ext_resource type="Script" path="res://src/sharing_is_caring.gd" id="1_vngij"]
 [ext_resource type="PackedScene" uid="uid://bkrf7fhefogpy" path="res://Scenes/HUD/HUD.tscn" id="2_nm6qv"]
 [ext_resource type="PackedScene" uid="uid://cmuj8b7jrfgb2" path="res://Scenes/tiles/grid.tscn" id="3_kq8im"]
 [ext_resource type="PackedScene" uid="uid://cskjvx83suloi" path="res://Scenes/landing_page.tscn" id="4_xsvgf"]
+[ext_resource type="Texture2D" uid="uid://b606g0m5bvqjd" path="res://assets/forest_bg.png" id="5_ktjgt"]
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_ao0kf"]
-vertices = PackedVector2Array(1031, 1047, 0, 1047, 0, 403, 1031, 403)
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_ymlsf"]
+vertices = PackedVector2Array(311, 312, -310, 312, -310, -308, 311, -308)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-10, 393, 1041, 393, 1041, 1057, -10, 1057)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-320, -318, -320, 322, 321, 322, 321, -318)])
 
-[node name="SharingIsCaring" type="Node2D"]
+[node name="SharingIsCaring" type="Node2D" node_paths=PackedStringArray("hud", "grid")]
 script = ExtResource("1_vngij")
+hud = NodePath("Hud")
+grid = NodePath("NavigationRegion2D/Grid")
 
 [node name="Hud" parent="." instance=ExtResource("2_nm6qv")]
 z_index = 1
@@ -19,15 +22,24 @@ position = Vector2(0, 1)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 z_index = 2
-position = Vector2(0, -16)
-navigation_polygon = SubResource("NavigationPolygon_ao0kf")
+position = Vector2(515, 707)
+navigation_polygon = SubResource("NavigationPolygon_ymlsf")
 
 [node name="Grid" parent="NavigationRegion2D" instance=ExtResource("3_kq8im")]
-position = Vector2(0, 403)
 village_spawn_rate = 2
 resource_spawn_rate = 5
 
 [node name="LandingPage" parent="." instance=ExtResource("4_xsvgf")]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -2
+z_as_relative = false
+offset_left = -406.0
+offset_top = -102.0
+offset_right = 1898.0
+offset_bottom = 1194.0
+mouse_filter = 2
+texture = ExtResource("5_ktjgt")
 
 [connection signal="enlarge_grid" from="Hud" to="." method="_on_enlarge"]
 [connection signal="new_village" from="NavigationRegion2D/Grid" to="." method="_on_new_village"]
