@@ -1,18 +1,23 @@
 class_name Grid extends Node2D
-## Responsible for populating the world with different kinds of tiles.
+## Defines and manages the interactible game world.
 ##
-## Can be "zoomed out" to reveal new tiles around its initial setup.
+## Positioned in the middle of the game world.
+## Populates the game world with different kinds of Tiles and transforms them according to input from the player.
+## Can be "zoomed out" or "shrunk" to reveal new tiles around its initial setup.
 
 
 # --PROPERTIES--
 
 ## Dimensions of the initial game world (in Tiles).
-@export var dimensions := Vector2(8, 5)
+## [br][br]
+## Dimensions of the [Vector2] correspond to the number of Tiles in a row, and the number of Tiles in a column, respectively.
+@export var dimensions : Vector2 = Vector2(5, 5)
 
-## Half of a tile's [i]width[/i] (and [i]height[/i]) in pixels.
+## A tile's [i]width[/i] (and [i]height[/i]) in pixels.
+## This value is used to calculate the positions of Tiles proportionate to the [Grid].
 ## [br]
-## [b]Note:[/b] The [i]width[/i] and [i]hight[/i] of each "Tile" must be [b]twice[/b] this amount to ensure proper visual placement.
-@export var offset : float = 64
+## [b]Note:[/b] The [i]width[/i] and [i]hight[/i] of [b]each[/b] "Tile" must be this amount to ensure proper visual placement.
+@export var tile_width : int = 128 # TODO : change to vector for rectangular tiles
 
 ## The maximum number of [Villages] allowed in the game.
 @export var max_villages : int = 5
@@ -67,20 +72,20 @@ var _new_zero : int = 0
 
 # --PROPERTIES UPDATED ON INSTANTIATION--
 
-# Random number generator for generating random tiles.
+# Random number generator for generating random Tiles.
 @onready var _rng : RandomNumberGenerator = RandomNumberGenerator.new()
 
 # New dimensions of the [Grid] after rescaling.
 @onready var _new_dimensions : Vector2 = dimensions
 
-# Keeps track of the previous calculated offset.
-@onready var _old_offset : Vector2 = Vector2.ONE * offset
-
-# Remembers the original position.
+# Remembers the original position of the [Grid]. 
 @onready var _initial_position : Vector2 = position
 
-# Remember the original scale.
+# Remember the original scale of the [Grid].
 @onready var _initial_scale : Vector2 = scale
+
+# TODO
+@onready var _initial_offset : Vector2 = tile_width/2.0 * (Vector2.ONE - dimensions)
 
 
 # -- SIGNALS--
@@ -115,17 +120,17 @@ func populate() -> void:
 			spawn_tile(location, instance)
 	rebake.emit()
 
-## Calculates the [member position] of a tile, given it's order on the grid.
+## Calculates the [member position] of a tile, given it's coordinates on the [Grid].
 ## Used to calculate the prospective positions of Tiles before they are spawned.
 ## [br]
-## The calculated position is proportionate to grid; it is [b]not the global position[/b].
+## The calculated position is proportionate to grid; it is [b]NOT[/b] the [member global_position].
 ## [br]
 ## [br][param x] : horizontal order of the tile in grid
-## [br][param y] : bertical order of the tile in grid
+## [br][param y] : vertical order of the tile in grid
 ## [br][br]
-## [code]Returns[/code] : [member postion] of the tile
-func calc_location(x : int, y : int) -> Vector2:
-	return Vector2(offset + (2 * offset * x), offset + (2 * offset * y))
+## [code]Returns[/code] : [member postion] of the Tile
+func calc_location(x : int, y : int) -> Vector2: # TODO : fix docs
+	return Vector2(_initial_offset.x + (tile_width * x), _initial_offset.y + (tile_width * y))
 
 ## Spawns a node at a given location.
 ## [br][br]
@@ -155,25 +160,23 @@ func enlarge() -> void:
 	_new_dimensions += Vector2.ONE * 2
 	scale.x = scale.x * (float(old_dimensions.x)/float(_new_dimensions.x))
 	scale.y = scale.y * (float(old_dimensions.y)/float(_new_dimensions.y))
-	_old_offset = _old_offset * scale
-	position += _old_offset * 2
 	fill_around()
 	rebake.emit()
 
-## Fills the immediate area surrounding the currently existing game world with a one tile thick line if tiles.
+## Fills the immediate area surrounding the currently existing game world with a one Tile thick line of Tiles.
 ## [br][br]
 ## [b]Note:[/b] If called before [method populate], fills around the area defined by [member dimensions].
 func fill_around():
 	var location : Vector2
 	_new_zero -= 1
-	# fill top and bottom
+	# fill top and bottom (and corners)
 	var new_dimensions = _new_dimensions + (Vector2.ONE * _new_zero)
 	for tile_abscissa in range(_new_zero, new_dimensions.x):
 		location = calc_location(tile_abscissa, _new_zero)
 		spawn_tile(location, _get_random_tile_instance())
 		location = calc_location(tile_abscissa, new_dimensions.y - 1)
 		spawn_tile(location, _get_random_tile_instance())
-	# fill sides
+	# fill sides (except corners)
 	for tile_ordinate in range(_new_zero + 1, new_dimensions.y - 1):
 		location = calc_location(_new_zero, tile_ordinate)
 		spawn_tile(location, _get_random_tile_instance())
@@ -189,7 +192,6 @@ func _reset() -> void:
 		remove_child(child)
 		child.queue_free()
 	_new_dimensions = dimensions # TODO : set the old values in a more... dynamic way
-	_old_offset = Vector2.ONE * offset
 	scale = _initial_scale
 	position = _initial_position
 	_village_number = 0
