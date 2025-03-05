@@ -6,26 +6,23 @@
 [ext_resource type="PackedScene" uid="uid://cskjvx83suloi" path="res://Scenes/landing_page.tscn" id="4_xsvgf"]
 [ext_resource type="Texture2D" uid="uid://b606g0m5bvqjd" path="res://assets/forest_bg.png" id="5_ktjgt"]
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_ymlsf"]
-vertices = PackedVector2Array(311, 312, -310, 312, -310, -308, 311, -308)
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_pg88q"]
+vertices = PackedVector2Array(310, 310, -310, 310, -310, -310, 310, -310)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-320, -318, -320, 322, 321, 322, 321, -318)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-320, -320, -320, 320, 320, 320, 320, -320)])
 
 [node name="SharingIsCaring" type="Node2D" node_paths=PackedStringArray("hud", "grid")]
 script = ExtResource("1_vngij")
 hud = NodePath("Hud")
-grid = NodePath("NavigationRegion2D/Grid")
+grid = NodePath("Grid")
 
 [node name="Hud" parent="." instance=ExtResource("2_nm6qv")]
 z_index = 1
 position = Vector2(0, 1)
 
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-z_index = 2
+[node name="Grid" parent="." instance=ExtResource("3_kq8im")]
 position = Vector2(515, 707)
-navigation_polygon = SubResource("NavigationPolygon_ymlsf")
-
-[node name="Grid" parent="NavigationRegion2D" instance=ExtResource("3_kq8im")]
+navigation_polygon = SubResource("NavigationPolygon_pg88q")
 village_spawn_rate = 2
 resource_spawn_rate = 5
 
@@ -42,6 +39,5 @@ mouse_filter = 2
 texture = ExtResource("5_ktjgt")
 
 [connection signal="enlarge_grid" from="Hud" to="." method="_on_enlarge"]
-[connection signal="new_village" from="NavigationRegion2D/Grid" to="." method="_on_new_village"]
-[connection signal="rebake" from="NavigationRegion2D/Grid" to="NavigationRegion2D" method="bake_navigation_polygon"]
-[connection signal="start" from="LandingPage" to="NavigationRegion2D/Grid" method="_on_start"]
+[connection signal="new_village" from="Grid" to="." method="_on_new_village"]
+[connection signal="start" from="LandingPage" to="Grid" method="_on_start"]

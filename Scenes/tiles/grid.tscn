@@ -2,5 +2,7 @@
 
 [ext_resource type="Script" path="res://src/tiles/grid.gd" id="1_pqci1"]
 
-[node name="Grid" type="Node2D"]
+[node name="Grid" type="NavigationRegion2D"]
 script = ExtResource("1_pqci1")
+
+[node name="Node2D" type="Node2D" parent="."]

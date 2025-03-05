@@ -1,19 +1,19 @@
 [gd_scene load_steps=4 format=3 uid="uid://dpjd0xywb3qxf"]
 
-[ext_resource type="Script" path="res://src/tiles/grid.gd" id="1_dvmxp"]
+[ext_resource type="PackedScene" uid="uid://cmuj8b7jrfgb2" path="res://Scenes/tiles/grid.tscn" id="1_6kbej"]
 [ext_resource type="Texture2D" uid="uid://0ysc4tjxe236" path="res://assets/empty_square_64.png" id="2_np7s6"]
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_vpoh2"]
-vertices = PackedVector2Array(630, 630, 10, 630, 10, 10, 630, 10)
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_i2kqa"]
+vertices = PackedVector2Array(310, 310, -310, 310, -310, -310, 310, -310)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 0, 640, 640, 640, 640, 0)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-320, -320, -320, 320, 320, 320, 320, -320)])
 
-[node name="NavigationRegion2D" type="NavigationRegion2D"]
-navigation_polygon = SubResource("NavigationPolygon_vpoh2")
+[node name="Grid Test" type="Node2D"]
 
-[node name="Grid" type="Node2D" parent="."]
+[node name="Grid" parent="." instance=ExtResource("1_6kbej")]
 position = Vector2(320, 320)
-script = ExtResource("1_dvmxp")
+navigation_polygon = SubResource("NavigationPolygon_i2kqa")
+village_spawn_rate = 1
 resource_spawn_rate = 3
 
 [node name="Button" type="Button" parent="."]
@@ -74,7 +74,6 @@ position = Vector2(383, 7)
 scale = Vector2(11.9531, 0.21875)
 texture = ExtResource("2_np7s6")
 
-[connection signal="rebake" from="Grid" to="." method="bake_navigation_polygon"]
 [connection signal="pressed" from="Button" to="Grid" method="enlarge"]
-[connection signal="pressed" from="Button2" to="Grid" method="populate"]
+[connection signal="pressed" from="Button2" to="Grid" method="_on_start"]
 [connection signal="pressed" from="Button3" to="Grid" method="_reset"]

@@ -1,4 +1,4 @@
-class_name Grid extends Node2D
+class_name Grid extends NavigationRegion2D
 ## Defines and manages the interactible game world.
 ##
 ## Positioned in the middle of the game world.
@@ -8,6 +8,10 @@ class_name Grid extends Node2D
 
 # --PROPERTIES--
 
+## The maximum number of [Villages] allowed in the game.
+@export var max_villages : int = 5
+
+@export_group("Sizes")
 ## Dimensions of the initial game world (in Tiles).
 ## [br][br]
 ## Dimensions of the [Vector2] correspond to the number of Tiles in a row, and the number of Tiles in a column, respectively.
@@ -17,10 +21,7 @@ class_name Grid extends Node2D
 ## This value is used to calculate the positions of Tiles proportionate to the [Grid].
 ## [br]
 ## [b]Note:[/b] The [i]width[/i] and [i]hight[/i] of [b]each[/b] "Tile" must be this amount to ensure proper visual placement.
-@export var tile_width : int = 128 # TODO : change to vector for rectangular tiles
-
-## The maximum number of [Villages] allowed in the game.
-@export var max_villages : int = 5
+@export var tile_size : Vector2 = Vector2(128, 128)
 
 
 # -- EXPORTED PROPERTIES--
@@ -69,6 +70,9 @@ var _village_number : int = 0
 # Keeps track of how small the grid has become
 var _new_zero : int = 0
 
+# The distance of [Grid] from the top left corner of the tile at coordinates (0, 0).
+var _initial_offset : Vector2
+
 
 # --PROPERTIES UPDATED ON INSTANTIATION--
 
@@ -78,14 +82,11 @@ var _new_zero : int = 0
 # New dimensions of the [Grid] after rescaling.
 @onready var _new_dimensions : Vector2 = dimensions
 
-# Remembers the original position of the [Grid]. 
-@onready var _initial_position : Vector2 = position
+# Remember the original scale of the [Grid]. TODO : remove
+#@onready var _initial_scale : Vector2 = scale 
 
-# Remember the original scale of the [Grid].
-@onready var _initial_scale : Vector2 = scale
-
-# TODO
-@onready var _initial_offset : Vector2 = tile_width/2.0 * (Vector2.ONE - dimensions)
+# The child holding the Tiles of in the [Grid].
+@onready var _tile_holder := $Node2D
 
 
 # -- SIGNALS--
@@ -95,11 +96,14 @@ var _new_zero : int = 0
 ## [param instance] : instance of the newly spawned [Village]
 signal new_village
 
-## Emitted when changes that would affect a [NavigationRegion2D] would occur.
-signal rebake
-
 
 # --METHODS--
+## Calculates the initial values of more complex private properties.
+func _ready() -> void:
+	var half_size := tile_size/2.0
+	var coefficient := Vector2.ONE - dimensions
+	_initial_offset = Vector2(half_size.x * coefficient.x, half_size.y * coefficient.y)
+
 
 ## Populates the initial scene.
 ## [br][br]
@@ -118,19 +122,26 @@ func populate() -> void:
 			var instance = deck.pop_front().instantiate()
 			var location = calc_location(x, y)
 			spawn_tile(location, instance)
-	rebake.emit()
+	bake_navigation_polygon()
 
-## Calculates the [member position] of a tile, given it's coordinates on the [Grid].
+## Calculates the [member position] of a Tile, given it's coordinates on the [Grid].
 ## Used to calculate the prospective positions of Tiles before they are spawned.
 ## [br]
 ## The calculated position is proportionate to grid; it is [b]NOT[/b] the [member global_position].
 ## [br]
-## [br][param x] : horizontal order of the tile in grid
-## [br][param y] : vertical order of the tile in grid
+## [br][param x] : horizontal coordinate (abscissa) of the Tile in grid
+## [br][param y] : vertical coordinate (ordinate) of the Tile in grid
 ## [br][br]
-## [code]Returns[/code] : [member postion] of the Tile
-func calc_location(x : int, y : int) -> Vector2: # TODO : fix docs
-	return Vector2(_initial_offset.x + (tile_width * x), _initial_offset.y + (tile_width * y))
+## [code]Returns[/code] : [member postion] of the Tile proportional to [Grid].
+## [br][br]
+## [b]Note:[/b] The coordinates of the Tiles correspond to the [b]initial[/b] layout of the [Grid] defined by its [member dimensions].
+## When the [Grid] is first populated using [method populate], the Tile at the [i]top left[/i] corner would have the coordinates (0, 0).
+## The Tile on the [i]bottom right[/i] would, on the other hand, have the coordinates ([member dimensions].x, [member dimansions].y).
+## [br]
+## If a new Tile is placed right above the Tile at (0, 0), for example with the [method fill_around] method, that new Tile right above the one at (0, 0) would have the coordinates (0, -1).
+## The coordinates of the initial Tile at (0, 0) would [b]not[/b] change.
+func calc_location(x : int, y : int) -> Vector2:
+	return Vector2(_initial_offset.x + (tile_size.x * x), _initial_offset.y + (tile_size.y * y))
 
 ## Spawns a node at a given location.
 ## [br][br]
@@ -152,7 +163,7 @@ func spawn_tile(location : Vector2, instance : Node2D) -> void:
 			instance.modulate = SharingIsCaring.VillageColors[instance.get_id()]
 			new_village.emit(instance)
 	instance.position = location
-	add_child(instance)
+	_tile_holder.add_child(instance)
 
 ## Rescales the [Grid] and populates the newly appeared empty area.
 func enlarge() -> void:
@@ -161,7 +172,7 @@ func enlarge() -> void:
 	scale.x = scale.x * (float(old_dimensions.x)/float(_new_dimensions.x))
 	scale.y = scale.y * (float(old_dimensions.y)/float(_new_dimensions.y))
 	fill_around()
-	rebake.emit()
+	bake_navigation_polygon()
 
 ## Fills the immediate area surrounding the currently existing game world with a one Tile thick line of Tiles.
 ## [br][br]
@@ -188,12 +199,11 @@ func fill_around():
 
 # Resets the game world.
 func _reset() -> void:
-	for child in get_children():
+	for child in _tile_holder.get_children():
 		remove_child(child)
 		child.queue_free()
-	_new_dimensions = dimensions # TODO : set the old values in a more... dynamic way
-	scale = _initial_scale
-	position = _initial_position
+	_new_dimensions = dimensions
+	_tile_holder.scale = scale
 	_village_number = 0
 	_new_zero = 0
 	_on_start()
@@ -218,7 +228,7 @@ func _get_random_tile_instance() -> Node2D:
 # [param location] : The location where a Tile was supposedly destroyed for any reason.
 func _on_destruction(location : Vector2) -> void:
 	spawn_tile(location, destroyed.instantiate())
-	rebake.emit()
+	bake_navigation_polygon()
 
 # Spawns battlefield.
 func _on_battle_start(location : Vector2) -> void: # TODO : tell people about the started battle?
@@ -229,7 +239,7 @@ func _on_battle_start(location : Vector2) -> void: # TODO : tell people about th
 # [param location] : [member position] of the expired tile.
 func _on_empty_expire(location : Vector2) -> void:
 	spawn_tile(location, path.instantiate())
-	rebake.emit()
+	bake_navigation_polygon()
 
 # Behaviour to take at the very start of the game. Populates the initial range of [Grid].
 func _on_start() -> void:
